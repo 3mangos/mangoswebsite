@@ -1,0 +1,41 @@
+@import "tailwindcss";
+@import "lenis/dist/lenis.css";
+
+@theme {
+  --color-mango-400: #FFCE33;
+  --color-mango-500: #FFB800;
+  --color-mango-600: #E6A600;
+  
+  --color-cocoa-800: #3D261C;
+  --color-cocoa-900: #1A110D;
+  
+  --color-cream-50: #FFFCF6;
+  --color-cream-100: #F5EFE6;
+  
+  --color-leaf: #2A5C37;
+  
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Clash Display", "Playfair Display", serif;
+}
+
+@layer base {
+  body {
+    @apply bg-cream-50 text-cocoa-900 font-sans antialiased selection:bg-mango-500 selection:text-cocoa-900;
+  }
+}
+
+@layer utilities {
+  /* Mango's Signature UI Detail */
+  .shape-mango {
+    border-radius: 50% 50% 50% 10% / 50% 50% 50% 10%;
+    transform: rotate(45deg);
+  }
+  
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
