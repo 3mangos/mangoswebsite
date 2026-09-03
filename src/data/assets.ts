@@ -1,42 +1,14 @@
-export const ASSETS = {
-  brand: {
-    logo: '/src/assets/brand/logo.jpg',
-  },
-  products: {
-    heroSignature: '/src/assets/products/hero-mango-cream.png',
-    falooda: '/src/assets/products/royal-falooda.png',
-    faloodaLayers: {
-      base: '/src/assets/products/royal-falooda.png',
-      splash: '/src/assets/products/royal-falooda.png',
-      toppings: '/src/assets/products/royal-falooda.png',
-    },
-    waffle: '/src/assets/products/biscoff-waffle.jpg',
-    waffleLayers: {
-      base: '/src/assets/products/biscoff-waffle.jpg',
-      drip: '/src/assets/products/biscoff-waffle.jpg',
-      crumbs: '/src/assets/products/biscoff-waffle.jpg',
-    }
-  },
-  heroShowcase: [
-    {
-      src: '/src/assets/products/choco-shake.jpg',
-      label: 'Signature Shakes',
-      accent: '#5C3317',
-    },
-    {
-      src: '/src/assets/products/dryfruit-bowl.jpg',
-      label: 'Dryfruit Sundae',
-      accent: '#C89B3C',
-    },
-    {
-      src: '/src/assets/products/choco-sundae.jpg',
-      label: 'Choco Fudge Bowl',
-      accent: '#2A5C37',
-    },
-  ],
-  heroComposition: {
-    cup: '/src/assets/hero-composition/ice-cream-cup.png',
-    drip: '/src/assets/hero-composition/chocolate-drip.png',
-    crumbs: '/src/assets/hero-composition/biscuit-crumbs.png',
-  }
-};
+import logo from '../assets/brand/mangos-logo.png';
+import chocolateShake from '../assets/products/new/belgian-chocolate-shake.png';
+import biscoffSundae from '../assets/products/new/biscoff-sundae.png';
+import blueMojito from '../assets/products/new/blue-lime-boba-mojito.png';
+import kulfiFalooda from '../assets/products/new/kulfi-falooda.png';
+import mangoMojito from '../assets/products/new/mango-boba-mojito.png';
+import hotFudge from '../assets/products/new/hot-chocolate-fudge.png';
+import dryFruitKulfi from '../assets/products/new/dry-fruit-kulfi-sundae.png';
+import strawberryChocolate from '../assets/products/new/strawberry-chocolate.png';
+import mangoCream from '../assets/products/new/mango-cream.png';
+import strawberryCream from '../assets/products/new/strawberry-cream.png';
+import pistachioSundae from '../assets/products/new/pistachio-sundae.png';
+
+export const ASSETS = { logo, hero: mangoCream, products: { chocolateShake, biscoffSundae, blueMojito, kulfiFalooda, mangoMojito, hotFudge, dryFruitKulfi, strawberryChocolate, mangoCream, strawberryCream, pistachioSundae } };

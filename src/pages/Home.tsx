@@ -1,45 +1,38 @@
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import Hero from '../components/home/Hero';
-import BrandMarquee from '../components/home/BrandMarquee';
-import LiquidDivider from '../components/common/LiquidDivider';
-import SignatureStory from '../components/home/SignatureStory';
-import BrandHeritage from '../components/home/BrandHeritage';
-import CategoryExplorer from '../components/home/CategoryExplorer';
-import StoreLocatorPreview from '../components/home/StoreLocatorPreview';
-import MangoBackToTop from '../components/common/MangoBackToTop';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { ArrowDown, ArrowUpRight, Instagram, MapPin, Sparkles } from 'lucide-react';
+import { ASSETS } from '../data/assets';
+
+const reveal = { initial: { opacity: 0, y: 28 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, amount: .25 }, transition: { duration: .75, ease: [0.2, .7, .2, 1] } };
+const products = [
+  { name: 'Mango Cream', type: 'Fruit-forward', image: ASSETS.products.mangoCream, color: '#ffb900' },
+  { name: 'Belgian Chocolate', type: 'Thick shake', image: ASSETS.products.chocolateShake, color: '#6d3621' },
+  { name: 'Biscoff Sundae', type: 'Scoop it up', image: ASSETS.products.biscoffSundae, color: '#d78635' },
+  { name: 'Blue Lime Boba', type: 'Sip something wild', image: ASSETS.products.blueMojito, color: '#147ed1' },
+];
+
+function ProductRail() {
+  const [active, setActive] = useState(0);
+  const current = products[active];
+  return <section id="experience" className="bg-night px-5 py-24 text-cream md:px-10 md:py-32">
+    <div className="mx-auto max-w-7xl"><motion.div {...reveal} className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between"><div><p className="eyebrow text-mango">The good stuff</p><h2 className="display mt-3 max-w-xl text-5xl leading-[.86] md:text-7xl">Find your<br/><i className="font-light text-mango">favourite mood.</i></h2></div><p className="max-w-sm text-sm leading-relaxed text-cream/65">A colourful little universe of ice creams, shakes, falooda and feel-good extras. Explore the range, then let the craving decide.</p></motion.div>
+      <div className="mt-12 grid gap-5 lg:grid-cols-[.8fr_1.2fr]"><div className="grid grid-cols-2 gap-3 lg:grid-cols-1">{products.map((product, i) => <button key={product.name} onClick={() => setActive(i)} className={`group flex items-center justify-between rounded-2xl border p-4 text-left transition-all ${i === active ? 'border-mango bg-mango text-ink' : 'border-white/15 text-cream hover:border-white/50'}`}><span><span className="block text-[10px] font-bold uppercase tracking-[.16em] opacity-60">0{i + 1}</span><span className="mt-1 block text-sm font-bold md:text-base">{product.name}</span></span><ArrowUpRight className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" size={18}/></button>)}</div>
+        <motion.div layout className="relative min-h-[480px] overflow-hidden rounded-[2rem]" style={{ backgroundColor: current.color }}><div className="grain absolute inset-0 opacity-25"/><motion.img key={current.name} initial={{ opacity: 0, scale: .85, rotate: -5 }} animate={{ opacity: 1, scale: 1, rotate: 0 }} transition={{ type: 'spring', stiffness: 120, damping: 18 }} src={current.image} alt={current.name} className="absolute inset-0 h-full w-full object-contain p-4 drop-shadow-[0_28px_18px_rgba(0,0,0,.22)] md:p-8"/><div className="absolute inset-x-5 bottom-5 flex items-end justify-between text-ink"><div><p className="eyebrow">{current.type}</p><p className="display mt-1 text-3xl">{current.name}</p></div><span className="grid h-11 w-11 place-items-center rounded-full bg-ink text-cream"><ArrowUpRight size={20}/></span></div></motion.div></div>
+      <div className="mt-5 flex items-center gap-3 overflow-hidden whitespace-nowrap border-y border-white/15 py-4 text-[11px] font-bold uppercase tracking-[.19em] text-mango">{Array(7).fill('Creamy. Crunchy. Completely yours. ✦ ').map((t, i) => <span key={i}>{t}</span>)}</div>
+    </div></section>;
+}
+
+function Franchise() { return <section id="franchise" className="bg-mango px-5 py-24 text-ink md:px-10 md:py-32"><div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.1fr_.9fr] lg:items-end"><motion.div {...reveal}><p className="eyebrow">Bring the joy closer</p><h2 className="display mt-4 max-w-3xl text-5xl leading-[.86] md:text-8xl">Build the next<br/><i className="font-light">happy place.</i></h2><p className="mt-7 max-w-md text-base leading-relaxed md:text-lg">Mango's is inviting thoughtful, growth-minded franchise partners to bring a memorable dessert experience to more neighbourhoods.</p><a href="mailto:franchise@mangoscreamery.com" className="mt-8 inline-flex items-center gap-2 rounded-full bg-ink px-6 py-4 text-sm font-bold text-cream transition-transform hover:-translate-y-1">Become a franchise partner <ArrowUpRight size={18}/></a></motion.div><motion.div {...reveal} className="rounded-[2rem] border border-ink/20 bg-cream/45 p-6 backdrop-blur-sm"><p className="eyebrow">The Mango's advantage</p><div className="mt-8 grid gap-6">{[['A brand people remember','A bright, recognisable identity made for repeat visits.'],['Support that stays close','A collaborative relationship from set-up through launch.'],['Room to grow','A focused opportunity for entrepreneurs who love hospitality.']].map(([title, desc], i) => <div key={title} className="border-b border-ink/15 pb-5 last:border-0"><span className="text-xs font-bold">0{i + 1}</span><h3 className="mt-1 text-xl font-bold">{title}</h3><p className="mt-1 max-w-sm text-sm leading-relaxed opacity-75">{desc}</p></div>)}</div></motion.div></div></section>; }
+
+function Footer() { return <footer id="visit" className="bg-ink px-5 pb-8 pt-20 text-cream md:px-10"><div className="mx-auto max-w-7xl"><div className="grid gap-12 md:grid-cols-[1.2fr_.8fr_.8fr]"><div><img src={ASSETS.logo} alt="Mango's" className="h-20 w-auto rounded-xl bg-cream p-2"/><h2 className="display mt-8 text-5xl leading-[.85] md:text-7xl">A little happy<br/><i className="font-light text-mango">goes a long way.</i></h2></div><div><p className="eyebrow text-mango">Say hello</p><a href="mailto:hello@mangoscreamery.com" className="mt-4 block text-lg font-bold hover:text-mango">hello@mangoscreamery.com</a><a href="mailto:franchise@mangoscreamery.com" className="mt-2 block text-sm text-cream/65 hover:text-mango">franchise@mangoscreamery.com</a></div><div><p className="eyebrow text-mango">Follow along</p><a href="#top" className="mt-4 flex items-center gap-2 text-lg font-bold hover:text-mango"><Instagram size={18}/> Instagram <ArrowUpRight size={15}/></a><a href="#experience" className="mt-2 flex items-center gap-2 text-sm text-cream/65 hover:text-mango"><MapPin size={16}/> Find your Mango's</a></div></div><div className="mt-16 flex flex-col justify-between gap-3 border-t border-white/15 pt-5 text-[11px] font-bold uppercase tracking-[.14em] text-cream/50 md:flex-row"><span>© {new Date().getFullYear()} Mango's. All rights reserved.</span><span>Ice creams · waffles · shakes</span></div></div></footer>; }
 
 export default function Home() {
-  return (
-    <main className="bg-cream-50 w-full min-h-screen overflow-hidden">
-      <Helmet>
-        <title>Mango's | The Premium Dessert Experience</title>
-      </Helmet>
-
-      {/* 01 - HERO */}
-      <Hero />
-      
-      {/* 02 - MARQUEE */}
-      <BrandMarquee />
-
-      {/* 03 - LIQUID TRANSITION */}
-      <div className="bg-mango-500">
-         <LiquidDivider color="text-cream-50" />
-      </div>
-
-      {/* 04 - CINEMATIC STICKY SCROLL (Fixed White Space) */}
-      <SignatureStory />
-
-      {/* 05 - BRAND HERITAGE & STORY */}
-      <BrandHeritage />
-
-      {/* 06 - INTERACTIVE CATEGORY EXPLORER */}
-      <CategoryExplorer />
-
-      {/* 07 - STORE LOCATOR PREVIEW */}
-      <StoreLocatorPreview />
-
-      {/* GLOBAL MICRO-INTERACTIONS */}
-      <MangoBackToTop />
-    </main>
-  );
+  const { scrollYProgress } = useScroll(); const drift = useTransform(scrollYProgress, [0, 1], [0, -160]);
+  return <main id="top" className="overflow-hidden"><Helmet><title>Mango's | Made for happy days</title><meta name="description" content="Mango's ice creams, waffles and shakes - made for happy days."/></Helmet>
+    <section className="relative isolate min-h-[100svh] overflow-hidden bg-cream px-5 pb-12 pt-28 md:px-10 md:pt-32"><div className="grain absolute inset-0 opacity-[.09]"/><div className="absolute -right-16 top-20 h-[32rem] w-[32rem] rounded-full bg-mango blur-[1px] md:right-[5%] md:h-[40rem] md:w-[40rem]"/><motion.div style={{ y: drift }} className="pointer-events-none absolute -left-20 bottom-10 h-52 w-52 rounded-full border-[28px] border-pink/75 md:h-72 md:w-72"/><div className="relative mx-auto grid min-h-[78svh] max-w-7xl items-center gap-2 lg:grid-cols-[.9fr_1.1fr]"><motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .85 }} className="relative z-10 pt-8"><div className="inline-flex items-center gap-2 rounded-full border border-ink/15 bg-cream/70 px-3 py-2 text-[10px] font-bold uppercase tracking-[.18em]"><Sparkles size={14} className="text-mango-deep"/> Ice creams · waffles · shakes</div><h1 className="display mt-6 text-[clamp(4.5rem,10vw,9.5rem)] leading-[.75]">THE<br/>GOOD<br/><i className="font-light text-mango-deep">MOOD.</i></h1><p className="mt-8 max-w-sm text-sm leading-relaxed text-ink/70 md:text-base">A bright scoop of joy for your everyday. Come for the mangoes. Stay for everything else.</p><div className="mt-7 flex flex-wrap gap-3"><a href="#experience" className="rounded-full bg-ink px-6 py-4 text-sm font-bold text-cream transition-transform hover:-translate-y-1">Explore the experience</a><a href="#story" className="rounded-full border border-ink/25 bg-cream/55 px-6 py-4 text-sm font-bold transition-colors hover:bg-cream">Our story</a></div></motion.div><motion.div initial={{ opacity: 0, scale: .9, rotate: 5 }} animate={{ opacity: 1, scale: 1, rotate: 0 }} transition={{ type: 'spring', stiffness: 90, damping: 16, delay: .15 }} className="relative min-h-[440px] md:min-h-[600px]"><motion.img animate={{ y: [0, -13, 0], rotate: [0, 1, 0] }} transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }} src={ASSETS.hero} alt="Mango's mango cream" className="absolute inset-0 h-full w-full object-contain drop-shadow-[0_35px_25px_rgba(34,87,44,.28)]"/><div className="absolute bottom-3 right-0 rounded-full bg-ink px-4 py-3 text-[10px] font-bold uppercase tracking-[.15em] text-cream">A lot more joy <span className="text-mango">↗</span></div></motion.div></div><a href="#story" className="absolute bottom-7 left-1/2 z-10 -translate-x-1/2 text-ink/60"><ArrowDown className="animate-bounce" size={20}/></a></section>
+    <section className="bg-ink py-5 text-mango"><div className="flex w-max animate-[marquee_22s_linear_infinite] whitespace-nowrap text-xl font-black uppercase tracking-[-.04em] md:text-3xl">{Array(6).fill('Mango season is every season. ✦ ').map((t, i) => <span key={i} className="mx-3">{t}</span>)}</div></section>
+    <section id="story" className="relative bg-vanilla px-5 py-24 md:px-10 md:py-32"><div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:items-center"><motion.div {...reveal} className="relative overflow-hidden rounded-[2rem] bg-pink"><img src={ASSETS.products.kulfiFalooda} alt="Mango's signature kulfi falooda" className="aspect-[4/5] w-full object-cover mix-blend-normal"/><div className="absolute bottom-5 left-5 rounded-full bg-cream px-4 py-2 text-[10px] font-bold uppercase tracking-[.17em]">Made for happy days</div></motion.div><motion.div {...reveal}><p className="eyebrow text-mango-deep">The Mango's story</p><h2 className="display mt-4 text-5xl leading-[.88] md:text-7xl">More than<br/>a <i className="font-light">sweet stop.</i></h2><p className="mt-7 max-w-lg text-base leading-relaxed text-ink/75">Mango's brings the colour, comfort and carefree energy of dessert into one feel-good ritual. A place to pause, share, celebrate - or just treat yourself for no reason at all.</p><div className="mt-9 grid grid-cols-2 gap-4 border-t border-ink/15 pt-6"><div><p className="text-3xl font-black text-mango-deep">Fresh</p><p className="mt-1 text-xs font-bold uppercase tracking-[.14em] text-ink/55">inspiration</p></div><div><p className="text-3xl font-black text-mango-deep">Full</p><p className="mt-1 text-xs font-bold uppercase tracking-[.14em] text-ink/55">of flavour</p></div></div></motion.div></div></section>
+    <ProductRail/><section className="relative overflow-hidden bg-pink px-5 py-20 text-cream md:px-10"><motion.div {...reveal} className="mx-auto grid max-w-7xl items-center gap-10 md:grid-cols-2"><div><p className="eyebrow">Make it a moment</p><h2 className="display mt-3 text-5xl leading-[.85] md:text-7xl">Big flavour.<br/><i className="font-light">Zero boring.</i></h2></div><div className="relative h-[360px]"><img src={ASSETS.products.strawberryChocolate} alt="Strawberry chocolate dessert" loading="lazy" className="absolute inset-0 h-full w-full object-contain drop-shadow-2xl"/></div></motion.div></section><Franchise/><Footer/>
+  </main>;
 }
