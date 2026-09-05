@@ -17,9 +17,24 @@ export default function NavBar() {
 
   // Detect scroll to toggle background transparency
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
+    let frame = 0;
+    let previous = window.scrollY > 40;
+    const onScroll = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(() => {
+        const next = window.scrollY > 40;
+        if (next !== previous) {
+          previous = next;
+          setScrolled(next);
+        }
+        frame = 0;
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, []);
 
   // Motion variants for drawer animation
@@ -31,7 +46,7 @@ export default function NavBar() {
   return (
     <>
       <header className="pointer-events-none fixed top-0 inset-x-0 z-50 px-3 pt-3 md:px-6 md:pt-5">
-        <div className={`pointer-events-auto mx-auto flex max-w-7xl items-center justify-between rounded-full border px-4 py-2.5 transition-all duration-500 md:px-5 ${scrolled ? 'border-white/45 bg-cream/92 shadow-[0_14px_38px_rgba(16,59,43,.18)] backdrop-blur-2xl' : 'border-ink/10 bg-cream/68 shadow-[0_10px_28px_rgba(16,59,43,.08)] backdrop-blur-xl'}`}>
+        <div className={`pointer-events-auto mx-auto flex max-w-7xl items-center justify-between rounded-full border px-4 py-2.5 transition-all duration-500 md:px-5 ${scrolled ? 'border-white/45 bg-cream/95 shadow-[0_14px_38px_rgba(16,59,43,.18)] md:backdrop-blur-2xl' : 'border-ink/10 bg-cream/88 shadow-[0_10px_28px_rgba(16,59,43,.08)] md:bg-cream/68 md:backdrop-blur-xl'}`}>
           
           {/* Official Mascot Logo */}
           <a href="#top" aria-label="Mango's home" onClick={() => setOpen(false)}>
