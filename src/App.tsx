@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import Lenis from 'lenis';
+import { MotionConfig } from 'framer-motion';
 import Home from './pages/Home';
 import Layout from './components/layout/Layout';
 
@@ -31,15 +32,17 @@ const ScrollManager = () => {
 export default function App() {
   return (
     <HelmetProvider>
-      <Router>
-        <ScrollManager />
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            {/* Future routes: /menu, /locations, /franchise */}
-          </Routes>
-        </Layout>
-      </Router>
+      <MotionConfig reducedMotion="user">
+        <Router>
+          <ScrollManager />
+          <Layout>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              {/* Future routes: /menu, /locations, /franchise */}
+            </Routes>
+          </Layout>
+        </Router>
+      </MotionConfig>
     </HelmetProvider>
   );
 }
