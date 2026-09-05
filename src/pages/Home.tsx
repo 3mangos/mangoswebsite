@@ -23,6 +23,7 @@ function MagneticLink({ href, children, dark = true }: { href: string; children:
   return <motion.a href={href} onMouseMove={move} onMouseLeave={() => setOffset({ x: 0, y: 0 })} animate={offset} transition={{ type: 'spring', stiffness: 240, damping: 16 }} className={`group relative inline-flex items-center gap-2 overflow-hidden rounded-full px-6 py-4 text-sm font-bold shadow-[inset_0_-2px_0_rgba(0,0,0,.14),0_10px_24px_rgba(0,0,0,.12)] ${dark ? 'bg-ink text-cream hover:text-ink' : 'border border-ink/20 bg-cream/70 text-ink hover:text-cream'}`}><span aria-hidden="true" className={`absolute inset-0 origin-left scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100 ${dark ? 'bg-mango' : 'bg-ink'}`} /><span className="relative">{children}</span><ArrowUpRight size={17} className="relative transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></motion.a>;
 }
 
+
 function Intro() {
   const [show, setShow] = useState(true);
   useEffect(() => { const id = window.setTimeout(() => setShow(false), 1700); return () => window.clearTimeout(id); }, []);
