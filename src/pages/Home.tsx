@@ -20,7 +20,7 @@ function MagneticLink({ href, children, dark = true }: { href: string; children:
     const rect = event.currentTarget.getBoundingClientRect();
     setOffset({ x: (event.clientX - rect.left - rect.width / 2) * .16, y: (event.clientY - rect.top - rect.height / 2) * .2 });
   }
-  return <motion.a href={href} onMouseMove={move} onMouseLeave={() => setOffset({ x: 0, y: 0 })} animate={offset} transition={{ type: 'spring', stiffness: 240, damping: 16 }} className={`group relative inline-flex items-center gap-2 overflow-hidden rounded-full px-6 py-4 text-sm font-bold shadow-[inset_0_-2px_0_rgba(0,0,0,.14),0_10px_24px_rgba(0,0,0,.12)] ${dark ? 'bg-ink text-cream hover:text-ink' : 'border border-ink/20 bg-cream/70 text-ink hover:text-cream'}`}><span aria-hidden="true" className={`absolute inset-0 origin-left scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100 ${dark ? 'bg-mango' : 'bg-ink'}`} /><span className="relative">{children}</span><ArrowUpRight size={17} className="relative transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></motion.a>;
+  return <motion.a href={href} onMouseMove={move} onMouseLeave={() => setOffset({ x: 0, y: 0 })} animate={offset} transition={{ type: 'spring', stiffness: 240, damping: 16 }} className={`group relative inline-flex items-center gap-2 overflow-hidden rounded-full px-6 py-4 text-sm font-bold shadow-[inset_0_-2px_0_rgba(0,0,0,.14),0_10px_24px_rgba(0,0,0,.12)] max-[360px]:px-4 max-[360px]:py-3 max-[360px]:text-[13px] ${dark ? 'bg-ink text-cream hover:text-ink' : 'border border-ink/20 bg-cream/70 text-ink hover:text-cream'}`}><span aria-hidden="true" className={`absolute inset-0 origin-left scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100 ${dark ? 'bg-mango' : 'bg-ink'}`} /><span className="relative">{children}</span><ArrowUpRight size={17} className="relative transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></motion.a>;
 }
 
 
@@ -45,7 +45,7 @@ function Hero() {
     }
   }
   
-  return <section onMouseMove={move} className="relative isolate flex min-h-[100svh] w-full flex-col items-center justify-center overflow-hidden bg-ink pb-10 pt-32 text-cream md:pb-12 md:pt-36">
+  return <section onMouseMove={move} className="relative isolate flex min-h-[100svh] w-full flex-col items-center justify-center overflow-hidden bg-ink pb-10 pt-32 text-cream max-[360px]:pb-7 max-[360px]:pt-24 md:pb-12 md:pt-36">
     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_58%,rgba(68,114,61,.44),transparent_30%),radial-gradient(ellipse_at_12%_84%,rgba(241,139,0,.27),transparent_30%),radial-gradient(ellipse_at_90%_18%,rgba(255,185,0,.22),transparent_25%)]" />
     <motion.div animate={reduced ? undefined : { rotate: [0, 10, 0], scale: [1, 1.08, 1] }} transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }} className="absolute -right-[16vw] top-[22%] h-[54vw] w-[54vw] rounded-[56%_44%_42%_58%/43%_52%_48%_57%] border border-mango/25 bg-mango/10 shadow-[inset_18px_16px_42px_rgba(255,255,255,.14),inset_-28px_-25px_44px_rgba(0,0,0,.18)] blur-[1px]" />
     <motion.div animate={reduced ? undefined : { rotate: [0, -9, 0], y: [0, 18, 0] }} transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }} className="absolute -left-[15vw] bottom-[4%] h-[42vw] w-[42vw] rounded-[38%_62%_60%_40%/47%_38%_62%_53%] bg-pink/20 blur-2xl" />
@@ -54,14 +54,14 @@ function Hero() {
       <motion.h1 initial={{ scale: .72, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 1.8, ease }} className="display whitespace-nowrap text-[28vw] font-black leading-none text-mango/35 [-webkit-text-stroke:1px_rgba(255,250,240,.22)] [text-shadow:0_5px_0_rgba(255,250,240,.13),0_26px_42px_rgba(0,0,0,.36)]">MANGO'S</motion.h1>
     </div>
     <div className="relative z-10 flex w-full max-w-7xl flex-col items-center px-5 text-center md:px-6">
-      <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .4, ease }} className="mb-6 inline-flex items-center gap-2 rounded-full border border-cream/25 bg-cream/[.07] px-5 py-2.5 text-[10px] font-bold uppercase tracking-[.2em] shadow-[inset_0_1px_0_rgba(255,255,255,.16)] backdrop-blur-md md:mb-8">
+      <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .4, ease }} className="mb-6 inline-flex items-center gap-2 rounded-full border border-cream/25 bg-cream/[.07] px-5 py-2.5 text-[10px] font-bold uppercase tracking-[.2em] shadow-[inset_0_1px_0_rgba(255,255,255,.16)] backdrop-blur-md max-[360px]:mb-4 max-[360px]:px-4 max-[360px]:py-2 max-[360px]:text-[9px] md:mb-8">
         <Sparkles size={14} className="text-mango" /> Ice creams · waffles · shakes
       </motion.div>
-      <h1 className="display relative z-20 text-[clamp(3.7rem,10vw,8.5rem)] leading-[.8] text-cream">
+      <h1 className="display relative z-20 text-[clamp(3.7rem,10vw,8.5rem)] leading-[.8] text-cream max-[360px]:text-[3rem]">
         <span className="block overflow-hidden pb-2"><motion.span initial={{ y: '110%' }} animate={{ y: 0 }} transition={{ delay: .5, duration: .8, ease }} className="block">MADE FOR</motion.span></span>
         <span className="block overflow-hidden pb-3"><motion.span initial={{ y: '110%' }} animate={{ y: 0 }} transition={{ delay: .6, duration: .8, ease }} className="block bg-gradient-to-b from-[#ffe181] via-mango to-mango-deep bg-clip-text text-transparent">HAPPY DAYS.</motion.span></span>
       </h1>
-      <div className="pointer-events-none relative mt-3 flex h-[clamp(272px,35svh,500px)] w-full items-center justify-center md:mt-5">
+      <div className="pointer-events-none relative mt-3 flex h-[clamp(272px,35svh,500px)] w-full items-center justify-center max-[360px]:mt-1 max-[360px]:h-[250px] md:mt-5">
         <motion.div style={{ x: pointer.x * .15, y: pointer.y * .08 }} className="absolute h-[70%] w-[min(62vw,440px)] rounded-[48%_52%_57%_43%/42%_54%_46%_58%] border border-cream/15 bg-[radial-gradient(circle_at_34%_24%,rgba(255,250,240,.25),transparent_15%),radial-gradient(circle_at_64%_70%,rgba(255,185,0,.44),transparent_34%)] shadow-[inset_0_18px_30px_rgba(255,255,255,.13),inset_0_-28px_38px_rgba(0,0,0,.16),0_28px_60px_rgba(0,0,0,.24)]" />
         <motion.div animate={reduced ? undefined : { y: [0, -9, 0], rotate: [-2, 2, -2] }} transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }} style={{ x: pointer.x * -1.15, y: pointer.y * -1.15 }} className="absolute z-30 h-[86%] w-[min(46vw,350px)]">
           <img src={ASSETS.brandMark} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full scale-[1.15] object-contain opacity-85 brightness-0 invert drop-shadow-[0_0_13px_rgba(255,250,240,.8)]" />
@@ -73,39 +73,58 @@ function Hero() {
         <motion.span animate={reduced ? undefined : { y: [0, -18, 0], rotate: [-10, 8, -10] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }} style={{ x: pointer.x * .42 }} className="absolute right-[18%] top-[10%] h-10 w-7 rounded-[100%_0_100%_0] bg-[#7bb55c] shadow-[inset_3px_3px_5px_rgba(255,255,255,.3),0_8px_18px_rgba(0,0,0,.22)] md:h-14 md:w-10" />
         <motion.span animate={reduced ? undefined : { y: [0, 12, 0], scale: [1, .86, 1] }} transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }} style={{ x: pointer.x * -.3 }} className="absolute bottom-[18%] left-[23%] h-4 w-4 rounded-full bg-mango shadow-[inset_2px_2px_3px_rgba(255,255,255,.6),0_8px_15px_rgba(0,0,0,.23)] md:h-6 md:w-6" />
       </div>
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.3, ease }} className="relative z-40 mt-2 flex flex-wrap justify-center gap-3 md:mt-3 md:gap-4"><MagneticLink href="#experience">Explore Menu</MagneticLink><MagneticLink href="#visit" dark={false}>Find Us</MagneticLink></motion.div>
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.3, ease }} className="relative z-40 mt-2 flex flex-wrap justify-center gap-3 max-[360px]:gap-2 md:mt-3 md:gap-4"><MagneticLink href="#experience">Explore Menu</MagneticLink><MagneticLink href="#visit" dark={false}>Find Us</MagneticLink></motion.div>
     </div>
   </section>;
 }
 
 function LiquidPortal() {
+  const reduced = useReducedMotion();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
   const progress = useSpring(scrollYProgress, { stiffness: 62, damping: 24, mass: .45 });
-  const productY = useTransform(progress, [0, .22, .62, 1], ['34%', '12%', '-3%', '26%']);
+  const productY = useTransform(progress, [0, .22, .62, 1], ['12%', '5%', '-3%', '18%']);
   const productX = useTransform(progress, [0, .62, 1], ['-5%', '0%', '5%']);
-  const productScale = useTransform(progress, [0, .28, .68, 1], [.58, .86, 1.06, .98]);
+  const productScale = useTransform(progress, [0, .28, .68, 1], [.76, .91, 1.06, .98]);
   const productRotate = useTransform(progress, [0, .45, 1], [-18, -5, 0]);
-  const wordY = useTransform(progress, [0, .25, .64, 1], ['86%', '28%', '-3%', '-12%']);
-  const blobScale = useTransform(progress, [0, .72, 1], [.08, .94, 1.3]);
+  const wordY = useTransform(progress, [0, .25, .64, 1], ['45%', '16%', '-3%', '-12%']);
+  const blobScale = useTransform(progress, [0, .72, 1], [.48, .94, 1.3]);
   const blobRotate = useTransform(progress, [0, 1], [-10, 10]);
   const copyOpacity = useTransform(progress, [0, .12, .28], [0, .82, 1]);
   const nextOpacity = useTransform(progress, [.72, 1], [0, 1]);
   const detailOpacity = useTransform(progress, [.14, .38], [0, 1]);
 
-  return <section id="portal" ref={ref} className="relative h-[220vh] bg-mango"><div className="sticky top-0 h-[100svh] overflow-hidden bg-mango text-ink">
+  return <>
+  <section id="portal" className="relative overflow-hidden bg-mango text-ink md:hidden">
+    <div className="relative flex min-h-[100svh] flex-col justify-between overflow-hidden px-5 pb-10 pt-28">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_28%,rgba(255,250,240,.56),transparent_19%),radial-gradient(circle_at_12%_85%,rgba(241,139,0,.3),transparent_36%)]" /><div className="grain pointer-events-none absolute inset-0 opacity-[.1]" />
+      <motion.div initial={reduced ? false : { scale: .6, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true, amount: .35 }} transition={{ type: 'spring', stiffness: 75, damping: 18 }} className="absolute left-1/2 top-[42%] h-[78vw] w-[78vw] -translate-x-1/2 -translate-y-1/2 rounded-[46%_54%_61%_39%/42%_55%_45%_58%] bg-[#ffd75a] shadow-[inset_18px_16px_35px_rgba(255,255,255,.22),inset_-25px_-28px_40px_rgba(241,139,0,.16)]" />
+      <motion.p initial={reduced ? false : { y: 50, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true, amount: .3 }} transition={{ duration: .75, ease }} className="display relative z-10 text-center text-[25vw] leading-none">JUICY</motion.p>
+      <motion.img initial={reduced ? false : { opacity: 0, y: 90, rotate: -12, scale: .74 }} whileInView={{ opacity: 1, y: 0, rotate: -3, scale: 1 }} viewport={{ once: true, amount: .25 }} animate={reduced ? undefined : { y: [0, -9, 0], rotate: [-3, 2, -3] }} transition={{ opacity: { duration: .55 }, y: { type: 'spring', stiffness: 70, damping: 17 }, rotate: { duration: 6.5, repeat: Infinity, ease: 'easeInOut' }, scale: { type: 'spring', stiffness: 70, damping: 17 } }} src={ASSETS.products.mangoCream} alt="Mango's Mango Cream" className="relative z-20 mx-auto -my-12 h-[54svh] w-full object-contain drop-shadow-[0_32px_22px_rgba(0,0,0,.3)]" />
+      <motion.div animate={reduced ? undefined : { rotate: [-13, 15, -13], y: [0, -9, 0] }} transition={{ duration: 6.5, repeat: Infinity, ease: 'easeInOut' }} className="absolute right-[10%] top-[26%] h-16 w-11 rounded-[100%_0_100%_0] bg-[#5b9d47] shadow-[inset_3px_3px_5px_rgba(255,255,255,.35),0_12px_16px_rgba(0,0,0,.16)]" />
+      <motion.span animate={reduced ? undefined : { y: [0, 16, 0], scale: [1, .82, 1] }} transition={{ duration: 4.8, repeat: Infinity, ease: 'easeInOut' }} className="absolute left-[16%] top-[39%] h-5 w-5 rounded-full bg-[#fff0a5] shadow-[inset_2px_2px_4px_rgba(255,255,255,.85),0_10px_14px_rgba(0,0,0,.15)]" />
+      <div className="relative z-20 flex items-center justify-between text-[10px] font-bold uppercase tracking-[.18em]"><span className="inline-flex items-center gap-2"><span className="h-px w-8 bg-ink" />A full-sensory hello</span><span>01 / 02</span></div>
+    </div>
+    <motion.div initial={reduced ? false : { clipPath: 'inset(14% 0 0 0)', y: 80 }} whileInView={{ clipPath: 'inset(0 0 0 0)', y: 0 }} viewport={{ once: true, amount: .25 }} transition={{ duration: .9, ease }} className="relative min-h-[100svh] overflow-hidden rounded-t-[3rem] bg-[#ffd75a] px-5 pb-12 pt-16 shadow-[0_-18px_35px_rgba(16,59,43,.14)]">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_0%,rgba(255,250,240,.62),transparent_27%),radial-gradient(circle_at_94%_78%,rgba(241,139,0,.26),transparent_30%)]" /><div className="grain pointer-events-none absolute inset-0 opacity-[.09]" />
+      <motion.p animate={reduced ? undefined : { x: ['0%', '-6%', '0%'] }} transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }} aria-hidden="true" className="display absolute bottom-[-.05em] left-0 whitespace-nowrap text-[30vw] leading-none text-ink/[.08]">MOOD SHIFT</motion.p>
+      <div className="relative flex min-h-[calc(100svh-7rem)] flex-col justify-between"><div><p className="eyebrow">Not a menu</p><h2 className="display mt-4 text-[clamp(3.8rem,16vw,5.5rem)] leading-[.78]">A mood<br/><i className="font-light">shift.</i></h2></div><div className="flex items-end justify-between gap-5"><p className="max-w-[13rem] text-sm font-medium leading-relaxed text-ink/70">Fruit-forward, bright, creamy — and made for an unhurried scroll.</p><motion.img animate={reduced ? undefined : { y: [0, -8, 0], rotate: [-4, 3, -4] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }} src={ASSETS.products.mangoMojito} alt="Mango boba mojito" loading="lazy" className="h-48 w-28 object-contain drop-shadow-[0_25px_18px_rgba(0,0,0,.22)]" /></div><div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[.18em]"><span className="h-px w-10 bg-ink" />Keep scrolling · 02 / 02</div></div>
+    </motion.div>
+  </section>
+  <section id="portal-desktop" ref={ref} className="relative hidden h-[220vh] bg-mango md:block"><div className="sticky top-0 h-[100svh] overflow-hidden bg-mango text-ink">
     <motion.div style={{ scale: blobScale, rotate: blobRotate }} className="absolute left-1/2 top-1/2 h-[57vmax] w-[57vmax] -translate-x-1/2 -translate-y-1/2 rounded-[46%_54%_61%_39%/42%_55%_45%_58%] bg-[#ffd75a] shadow-[inset_24px_18px_45px_rgba(255,255,255,.18),inset_-30px_-35px_60px_rgba(241,139,0,.15)]" />
     <motion.div style={{ opacity: detailOpacity }} className="absolute left-[7%] top-[18%] hidden items-center gap-3 text-[10px] font-bold uppercase tracking-[.2em] md:flex"><span className="h-px w-12 bg-ink/60" />01 / 03 · slow good moods</motion.div>
     <div className="grain absolute inset-0 opacity-[.09]" />
-    <motion.p style={{ y: wordY }} className="display absolute left-1/2 top-1/2 w-max -translate-x-1/2 -translate-y-1/2 text-[24vw] leading-none">JUICY</motion.p>
-    <motion.div style={{ x: productX, y: productY, scale: productScale, rotate: productRotate }} className="pointer-events-none absolute inset-0 z-10 mx-auto h-full w-[min(74vw,680px)]"><img src={ASSETS.products.mangoCream} alt="Mango's Mango Cream" className="h-full w-full object-contain drop-shadow-[0_50px_30px_rgba(0,0,0,.28)]" /></motion.div>
-    <motion.div animate={{ rotate: [-13, 19, -13], y: [0, -10, 0] }} transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }} className="absolute right-[9%] top-[16%] h-24 w-16 rounded-[100%_0_100%_0] bg-[#5b9d47] shadow-[inset_4px_4px_6px_rgba(255,255,255,.3),0_15px_20px_rgba(0,0,0,.16)] md:h-40 md:w-24" />
-    <motion.span animate={{ y: [0, 18, 0], scale: [1, .82, 1] }} transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }} className="absolute left-[14%] top-[30%] h-5 w-5 rounded-full bg-[#fff0a5] shadow-[inset_3px_3px_4px_rgba(255,255,255,.7),0_12px_18px_rgba(0,0,0,.14)] md:h-8 md:w-8" />
-    <motion.span animate={{ y: [0, -12, 0], x: [0, 8, 0] }} transition={{ duration: 6.5, repeat: Infinity, ease: 'easeInOut' }} className="absolute bottom-[26%] right-[16%] h-3 w-3 rounded-full bg-mango-deep shadow-[inset_2px_2px_3px_rgba(255,255,255,.7),0_10px_14px_rgba(0,0,0,.16)] md:h-5 md:w-5" />
-    <motion.div style={{ opacity: copyOpacity }} className="absolute bottom-[12%] left-5 z-20 max-w-[270px] md:left-[10%] md:max-w-sm"><p className="eyebrow">A full-sensory hello</p><h2 className="display mt-3 text-5xl leading-[.83] md:text-7xl">Not a menu.<br /><i className="font-light">A mood shift.</i></h2></motion.div>
+    <motion.p style={{ y: wordY }} className="display absolute left-1/2 top-1/2 w-max -translate-x-1/2 -translate-y-1/2 text-[28vw] leading-none md:text-[24vw]">JUICY</motion.p>
+    <motion.div style={{ x: productX, y: productY, scale: productScale, rotate: productRotate }} className="pointer-events-none absolute inset-0 z-10 mx-auto h-full w-[min(86vw,680px)] md:w-[min(74vw,680px)]"><motion.img animate={reduced ? undefined : { y: [0, -7, 0] }} transition={{ duration: 5.8, repeat: Infinity, ease: 'easeInOut' }} src={ASSETS.products.mangoCream} alt="Mango's Mango Cream" className="h-full w-full object-contain drop-shadow-[0_50px_30px_rgba(0,0,0,.28)]" /></motion.div>
+    <motion.div animate={reduced ? undefined : { rotate: [-13, 19, -13], y: [0, -10, 0] }} transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }} className="absolute right-[9%] top-[16%] h-24 w-16 rounded-[100%_0_100%_0] bg-[#5b9d47] shadow-[inset_4px_4px_6px_rgba(255,255,255,.3),0_15px_20px_rgba(0,0,0,.16)] md:h-40 md:w-24" />
+    <motion.span animate={reduced ? undefined : { y: [0, 18, 0], scale: [1, .82, 1] }} transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }} className="absolute left-[14%] top-[30%] h-5 w-5 rounded-full bg-[#fff0a5] shadow-[inset_3px_3px_4px_rgba(255,255,255,.7),0_12px_18px_rgba(0,0,0,.14)] md:h-8 md:w-8" />
+    <motion.span animate={reduced ? undefined : { y: [0, -12, 0], x: [0, 8, 0] }} transition={{ duration: 6.5, repeat: Infinity, ease: 'easeInOut' }} className="absolute bottom-[26%] right-[16%] h-3 w-3 rounded-full bg-mango-deep shadow-[inset_2px_2px_3px_rgba(255,255,255,.7),0_10px_14px_rgba(0,0,0,.16)] md:h-5 md:w-5" />
+    <motion.div style={{ opacity: copyOpacity }} className="absolute bottom-[10%] left-5 z-20 max-w-[270px] md:bottom-[12%] md:left-[10%] md:max-w-sm"><p className="eyebrow">A full-sensory hello</p><h2 className="display mt-3 text-5xl leading-[.83] md:text-7xl">Not a menu.<br /><i className="font-light">A mood shift.</i></h2></motion.div>
     <motion.div style={{ opacity: nextOpacity }} className="absolute bottom-8 right-6 z-20 max-w-[170px] text-right md:right-[10%]"><p className="eyebrow">Next chapter</p><p className="mt-2 text-xs font-medium leading-relaxed">A bag of mangoes, a big possibility.</p></motion.div>
     <div className="absolute bottom-7 right-6 z-20 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[.18em] md:right-[32%]"><span className="h-px w-10 bg-ink" />Keep scrolling</div>
-  </div></section>;
+  </div></section>
+  </>;
 }
 
 
@@ -113,7 +132,7 @@ function Story() {
   const reduced = useReducedMotion();
   const route = ['Kerala', 'Bangalore', 'UAE'];
 
-  return <section id="story" className="relative z-20 -mt-[132vh] overflow-hidden rounded-t-[3.25rem] bg-vanilla px-5 py-24 text-ink shadow-[0_-22px_45px_rgba(16,59,43,.13)] md:px-10 md:py-32">
+  return <section id="story" className="relative z-20 mt-0 overflow-hidden bg-vanilla px-5 py-24 text-ink md:-mt-[132vh] md:rounded-t-[3.25rem] md:px-10 md:py-32 md:shadow-[0_-22px_45px_rgba(16,59,43,.13)]">
     <motion.p
       initial={{ x: '-14%' }}
       whileInView={{ x: '-3%' }}

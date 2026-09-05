@@ -69,6 +69,8 @@ export default function NavBar() {
             className="grid h-11 w-11 place-items-center rounded-full bg-ink text-cream md:hidden shadow-md active:scale-95 transition-transform"
             onClick={() => setOpen((prev) => !prev)}
             aria-label={open ? 'Close navigation' : 'Open navigation'}
+            aria-expanded={open}
+            aria-controls="mobile-navigation"
           >
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -85,7 +87,7 @@ export default function NavBar() {
             variants={drawerVariants}
             className="fixed inset-x-3 top-[5rem] z-40 mx-auto max-w-7xl overflow-hidden rounded-3xl bg-ink text-cream shadow-xl md:inset-x-6 md:hidden"
           >
-            <nav className="grid gap-1 p-5">
+            <nav id="mobile-navigation" aria-label="Mobile navigation" className="grid gap-1 p-5">
               {NAV_LINKS.map(({ label, href }) => (
                 <a
                   key={href}

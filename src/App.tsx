@@ -15,6 +15,10 @@ const ScrollManager = () => {
   }, [pathname]);
 
   useEffect(() => {
+    // Keep touch scrolling native. It is more responsive on phones and avoids
+    // competing with the mobile, scroll-led campaign scenes.
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+
     const lenis = new Lenis({
       autoRaf: true,
       duration: 1.2,
