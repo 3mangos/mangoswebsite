@@ -1,4 +1,4 @@
-import logo from '../assets/brand/mangos-logo.png';
+import logo from '../assets/brand/mangos-wordmark-transparent.png';
 import chocolateShake from '../assets/products/new/belgian-chocolate-shake.png';
 import biscoffSundae from '../assets/products/new/biscoff-sundae.png';
 import blueMojito from '../assets/products/new/blue-lime-boba-mojito.png';

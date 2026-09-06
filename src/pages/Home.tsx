@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { AnimatePresence, motion, useInView, useMotionValue, useReducedMotion, useScroll, useTransform } from 'framer-motion';
-import { ArrowUpRight, Instagram, MapPin, Sparkles } from 'lucide-react';
+import { ArrowUpRight, Instagram, MapPin } from 'lucide-react';
 import { ASSETS } from '../data/assets';
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -24,13 +24,15 @@ function MagneticLink({ href, children, dark = true }: { href: string; children:
 }
 
 
-function Intro() {
-  const [show, setShow] = useState(true);
-  useEffect(() => { const id = window.setTimeout(() => setShow(false), 1700); return () => window.clearTimeout(id); }, []);
-  return <AnimatePresence>{show && <motion.div exit={{ clipPath: 'inset(0 0 100% 0)', transition: { duration: .8, ease } }} className="fixed inset-0 z-[100] grid place-items-center overflow-hidden bg-ink text-cream"><motion.div animate={{ scale: [1, 1.35, 1], opacity: [.14, .4, .14] }} transition={{ duration: 1.7, repeat: Infinity }} className="absolute h-[62vmax] w-[62vmax] rounded-full bg-mango blur-3xl" /><div className="relative text-center"><motion.img initial={{ scale: .65, rotate: -8, opacity: 0 }} animate={{ scale: 1, rotate: 0, opacity: 1 }} transition={{ duration: .6, ease }} src={ASSETS.brandMark} alt="Mango's" className="mx-auto h-36 w-40 object-contain md:h-44 md:w-48" /><motion.p initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: .4, duration: .7 }} className="mt-4 origin-left border-t border-mango pt-3 text-[10px] font-bold uppercase tracking-[.26em] text-mango">A little happy is loading</motion.p></div><div className="grain absolute inset-0 opacity-20" /></motion.div>}</AnimatePresence>;
+function OfficialWordmark({ className = '', alt = "Mango's" }: { className?: string; alt?: string }) {
+  return <img src={ASSETS.logo} alt={alt} className={`block h-auto object-contain ${className}`} />;
 }
 
-
+function Intro() {
+  const [show, setShow] = useState(true);
+  useEffect(() => { const id = window.setTimeout(() => setShow(false), 1500); return () => window.clearTimeout(id); }, []);
+  return <AnimatePresence>{show && <motion.div exit={{ clipPath: 'inset(0 0 100% 0)', transition: { duration: .72, ease } }} className="fixed inset-0 z-[100] grid place-items-center overflow-hidden bg-ink text-cream"><motion.div animate={{ scale: [1, 1.16, 1], opacity: [.26, .48, .26] }} transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }} className="absolute h-[52vmax] w-[52vmax] rounded-full bg-[radial-gradient(circle,#ffd75a_0%,#ffb900_35%,rgba(241,139,0,.12)_68%,transparent_72%)] blur-xl" /><div className="relative flex flex-col items-center"><motion.div initial={{ scale: .88, y: 16, opacity: 0 }} animate={{ scale: 1, y: 0, opacity: 1 }} transition={{ duration: .65, ease }}><OfficialWordmark className="w-[250px] md:w-[320px]" /></motion.div><motion.p initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: .35, duration: .65 }} className="mt-4 origin-left border-t border-mango pt-3 text-[10px] font-bold uppercase tracking-[.26em] text-mango">A little happy is loading</motion.p></div><div className="grain absolute inset-0 opacity-20" /></motion.div>}</AnimatePresence>;
+}
 
 function Hero() {
   const reduced = useReducedMotion();
@@ -38,62 +40,56 @@ function Hero() {
   const inView = useInView(ref, { amount: 0.15 });
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);
-  const auraX = useTransform(pointerX, (value) => value * 0.15);
-  const auraY = useTransform(pointerY, (value) => value * 0.08);
-  const markX = useTransform(pointerX, (value) => value * -1.15);
-  const markY = useTransform(pointerY, (value) => value * -1.15);
-  const creamX = useTransform(pointerX, (value) => value * -0.7);
-  const creamY = useTransform(pointerY, (value) => value * -0.7);
-  const mojitoX = useTransform(pointerX, (value) => value * 1.7);
-  const mojitoY = useTransform(pointerY, (value) => value * 1.7);
-  const leafX = useTransform(pointerX, (value) => value * 0.42);
-  const dropletX = useTransform(pointerX, (value) => value * -0.3);
-  
-  function move(event: MouseEvent<HTMLElement>) { 
+  const productX = useTransform(pointerX, (value) => value * -0.45);
+  const productY = useTransform(pointerY, (value) => value * -0.35);
+  const drinkX = useTransform(pointerX, (value) => value * 0.72);
+  const leafX = useTransform(pointerX, (value) => value * 0.28);
+
+  function move(event: MouseEvent<HTMLElement>) {
     if (!reduced && !window.matchMedia('(pointer: coarse)').matches) {
-      pointerX.set((event.clientX / window.innerWidth - 0.5) * 35);
-      pointerY.set((event.clientY / window.innerHeight - 0.5) * 35);
+      pointerX.set((event.clientX / window.innerWidth - .5) * 24);
+      pointerY.set((event.clientY / window.innerHeight - .5) * 24);
     }
   }
-  
-  return <section ref={ref} onMouseMove={move} className="relative isolate flex min-h-[100svh] w-full flex-col items-center justify-center overflow-hidden bg-ink pb-10 pt-32 text-cream max-[360px]:pb-7 max-[360px]:pt-24 md:pb-12 md:pt-36">
-    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_58%,rgba(68,114,61,.44),transparent_30%),radial-gradient(ellipse_at_12%_84%,rgba(241,139,0,.27),transparent_30%),radial-gradient(ellipse_at_90%_18%,rgba(255,185,0,.22),transparent_25%)]" />
-    <motion.div animate={reduced || !inView ? undefined : { rotate: [0, 10, 0], scale: [1, 1.08, 1] }} transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }} className="absolute -right-[16vw] top-[22%] h-[54vw] w-[54vw] rounded-[56%_44%_42%_58%/43%_52%_48%_57%] border border-mango/25 bg-mango/10 shadow-[inset_18px_16px_42px_rgba(255,255,255,.14),inset_-28px_-25px_44px_rgba(0,0,0,.18)] blur-[1px] will-change-transform" />
-    <motion.div animate={reduced || !inView ? undefined : { rotate: [0, -9, 0], y: [0, 18, 0] }} transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }} className="absolute -left-[15vw] bottom-[4%] h-[42vw] w-[42vw] rounded-[38%_62%_60%_40%/47%_38%_62%_53%] bg-pink/20 blur-xl md:blur-2xl will-change-transform" />
-    <div className="grain pointer-events-none absolute inset-0 opacity-[.08]" />
-    <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
-      <motion.h1 initial={{ scale: .72, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 1.8, ease }} className="display whitespace-nowrap text-[28vw] font-black leading-none text-mango/35 [-webkit-text-stroke:1px_rgba(255,250,240,.22)] [text-shadow:0_5px_0_rgba(255,250,240,.13),0_26px_42px_rgba(0,0,0,.36)]">MANGO'S</motion.h1>
-    </div>
-    <div className="relative z-10 flex w-full max-w-7xl flex-col items-center px-5 text-center md:px-6">
-      <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .4, ease }} className="mb-6 inline-flex items-center gap-2 rounded-full border border-cream/25 bg-cream/[.07] px-5 py-2.5 text-[10px] font-bold uppercase tracking-[.2em] shadow-[inset_0_1px_0_rgba(255,255,255,.16)] backdrop-blur-md max-[360px]:mb-4 max-[360px]:px-4 max-[360px]:py-2 max-[360px]:text-[9px] md:mb-8">
-        <Sparkles size={14} className="text-mango" /> Ice creams · waffles · shakes
-      </motion.div>
-      <h1 className="display relative z-20 text-[clamp(3.7rem,10vw,8.5rem)] leading-[.8] text-cream max-[360px]:text-[3rem]">
-        <span className="block overflow-hidden pb-2"><motion.span initial={{ y: '110%' }} animate={{ y: 0 }} transition={{ delay: .5, duration: .8, ease }} className="block">MADE FOR</motion.span></span>
-        <span className="block overflow-hidden pb-3"><motion.span initial={{ y: '110%' }} animate={{ y: 0 }} transition={{ delay: .6, duration: .8, ease }} className="block bg-gradient-to-b from-[#ffe181] via-mango to-mango-deep bg-clip-text text-transparent">HAPPY DAYS.</motion.span></span>
-      </h1>
-      <div className="pointer-events-none relative mt-3 flex h-[clamp(272px,35svh,500px)] w-full items-center justify-center max-[360px]:mt-1 max-[360px]:h-[250px] md:mt-5">
-        <motion.div style={{ x: auraX, y: auraY }} className="absolute h-[70%] w-[min(62vw,440px)] rounded-[48%_52%_57%_43%/42%_54%_46%_58%] border border-cream/15 bg-[radial-gradient(circle_at_34%_24%,rgba(255,250,240,.25),transparent_15%),radial-gradient(circle_at_64%_70%,rgba(255,185,0,.44),transparent_34%)] shadow-[inset_0_18px_30px_rgba(255,255,255,.13),inset_0_-28px_38px_rgba(0,0,0,.16),0_28px_60px_rgba(0,0,0,.24)] will-change-transform" />
-        <motion.div animate={reduced || !inView ? undefined : { y: [0, -9, 0], rotate: [-2, 2, -2] }} transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }} style={{ x: markX, y: markY }} className="absolute z-30 h-[86%] w-[min(46vw,350px)] will-change-transform">
-          <img src={ASSETS.brandMark} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full scale-[1.15] object-contain opacity-85 brightness-0 invert drop-shadow-[0_0_13px_rgba(255,250,240,.8)]" />
-          <img src={ASSETS.brandMark} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full scale-[1.23] object-contain opacity-45 brightness-0 invert blur-[10px]" />
-          <img src={ASSETS.brandMark} alt="Mango's running mascot holding mangoes" className="relative h-full w-full object-contain drop-shadow-[0_14px_3px_rgba(255,250,240,.8)] drop-shadow-[0_25px_30px_rgba(0,0,0,.52)]" />
-        </motion.div>
-        <motion.img initial={{ opacity: 0, x: 88, rotate: 30 }} animate={{ opacity: 1, x: 0, rotate: 12 }} transition={{ type: 'spring', stiffness: 52, damping: 16, delay: 1.05 }} style={{ x: creamX, y: creamY }} src={ASSETS.products.mangoCream} alt="Mango Cream dessert" className="absolute bottom-[1%] right-[-4%] z-20 w-[42%] max-w-[270px] drop-shadow-[0_30px_24px_rgba(0,0,0,.42)] will-change-transform sm:right-[5%] sm:w-[30%] md:right-[14%] md:w-[25%]" />
-        <motion.img initial={{ opacity: 0, x: -88, rotate: -30 }} animate={{ opacity: 1, x: 0, rotate: -12 }} transition={{ type: 'spring', stiffness: 52, damping: 16, delay: .95 }} style={{ x: mojitoX, y: mojitoY }} src={ASSETS.products.mangoMojito} alt="Mango boba mojito" className="absolute left-[-5%] top-[1%] z-40 w-[44%] max-w-[300px] drop-shadow-[0_30px_24px_rgba(0,0,0,.42)] will-change-transform sm:left-[5%] sm:w-[35%] md:left-[12%] md:w-[30%]" />
-        <motion.span animate={reduced || !inView ? undefined : { y: [0, -18, 0], rotate: [-10, 8, -10] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }} style={{ x: leafX }} className="absolute right-[18%] top-[10%] h-10 w-7 rounded-[100%_0_100%_0] bg-[#7bb55c] shadow-[inset_3px_3px_5px_rgba(255,255,255,.3),0_8px_18px_rgba(0,0,0,.22)] will-change-transform md:h-14 md:w-10" />
-        <motion.span animate={reduced || !inView ? undefined : { y: [0, 12, 0], scale: [1, .86, 1] }} transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }} style={{ x: dropletX }} className="absolute bottom-[18%] left-[23%] h-4 w-4 rounded-full bg-mango shadow-[inset_2px_2px_3px_rgba(255,255,255,.6),0_8px_15px_rgba(0,0,0,.23)] will-change-transform md:h-6 md:w-6" />
+
+  const liveMotion = !reduced && inView;
+  return <section ref={ref} onMouseMove={move} className="relative isolate min-h-[100svh] overflow-hidden bg-vanilla px-5 pb-6 pt-24 text-ink max-[360px]:px-4 max-[360px]:pt-[5.6rem] md:flex md:items-center md:px-10 md:py-28">
+    <div aria-hidden="true" className="absolute inset-y-0 right-0 hidden w-[52%] rounded-bl-[12rem] bg-ink md:block" />
+    <div aria-hidden="true" className="absolute -left-28 top-[58%] h-80 w-80 rounded-full bg-mango/15 blur-3xl" />
+    <div aria-hidden="true" className="absolute right-[8%] top-[12%] hidden h-64 w-64 rounded-full bg-mango/25 blur-3xl md:block" />
+    <div className="grain pointer-events-none absolute inset-0 opacity-[.055]" />
+    <div className="relative mx-auto grid w-full max-w-7xl items-center gap-4 md:grid-cols-[.9fr_1.1fr] md:gap-10">
+      <div className="relative z-10 md:flex md:min-h-[590px] md:flex-col md:justify-center">
+        <motion.div initial={{ opacity: 0, y: -16, scale: .96 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: .18, duration: .7, ease }}><OfficialWordmark className="w-[205px] max-[360px]:w-[185px] md:w-[300px]" /></motion.div>
+        <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .93, duration: .5, ease }} className="eyebrow mt-3 flex items-center gap-3 text-mango-deep md:mt-9"><span className="h-px w-8 bg-mango-deep/60" />Ice creams · waffles · shakes</motion.p>
+        <h1 className="display mt-3 max-w-[8ch] text-[3rem] leading-[.84] tracking-[-.075em] text-ink max-[360px]:text-[2.78rem] md:mt-5 md:text-[clamp(4.8rem,7vw,7.6rem)]">
+          <span className="block overflow-hidden pb-2"><motion.span initial={{ y: '115%' }} animate={{ y: 0 }} transition={{ delay: .63, duration: .8, ease }} className="block">A little</motion.span></span>
+          <span className="block overflow-hidden pb-2"><motion.span initial={{ y: '115%' }} animate={{ y: 0 }} transition={{ delay: .74, duration: .8, ease }} className="block text-mango-deep"><i className="font-light">happy</i> goes</motion.span></span>
+          <span className="block overflow-hidden"><motion.span initial={{ y: '115%' }} animate={{ y: 0 }} transition={{ delay: .85, duration: .8, ease }} className="block">a long way.</motion.span></span>
+        </h1>
+        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.06, duration: .55, ease }} className="mt-5 hidden max-w-sm md:block"><p className="text-sm leading-relaxed text-ink/68">Made for happy days — one bright scoop, sip and shared moment at a time.</p><div className="mt-7 flex flex-wrap gap-3"><MagneticLink href="#experience">Explore Menu</MagneticLink><MagneticLink href="#visit" dark={false}>Find Us</MagneticLink></div></motion.div>
       </div>
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.3, ease }} className="relative z-40 mt-2 flex flex-wrap justify-center gap-3 max-[360px]:gap-2 md:mt-3 md:gap-4"><MagneticLink href="#experience">Explore Menu</MagneticLink><MagneticLink href="#visit" dark={false}>Find Us</MagneticLink></motion.div>
+
+      <motion.div initial={{ opacity: 0, scale: .97 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: .14, duration: .8, ease }} className="relative h-[232px] overflow-hidden rounded-[2.2rem] bg-ink shadow-[0_24px_45px_rgba(16,59,43,.22)] max-[360px]:h-[205px] md:h-[610px] md:rounded-[3.8rem_3.8rem_3.8rem_10rem]">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: .9, ease }} aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(circle_at_72%_21%,rgba(255,215,90,.44),transparent_15%),radial-gradient(circle_at_48%_36%,rgba(244,234,216,.15),transparent_30%),radial-gradient(circle_at_10%_93%,rgba(111,168,85,.32),transparent_32%),linear-gradient(145deg,#173d2d_0%,#09291f_80%)]" />
+        <motion.div initial={{ opacity: 0, y: 80, scale: .94 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ type: 'spring', stiffness: 62, damping: 18, delay: .28 }} aria-hidden="true" className="absolute inset-x-[-8%] bottom-[-19%] h-[52%] rounded-[50%_50%_0_0/28%_28%_0_0] bg-[linear-gradient(180deg,#f9deb0_0%,#eebc70_36%,#b96828_100%)] shadow-[inset_0_14px_20px_rgba(255,255,255,.3),0_-16px_34px_rgba(255,185,0,.14)] will-change-transform md:inset-x-[-6%] md:bottom-[-16%] md:h-[50%]" />
+        <div aria-hidden="true" className="absolute inset-x-[8%] bottom-0 h-[35%] opacity-[.16]" style={{ backgroundImage: 'linear-gradient(rgba(255,250,240,.65) 1px, transparent 1px), linear-gradient(90deg, rgba(255,250,240,.65) 1px, transparent 1px)', backgroundSize: '18px 18px' }} />
+        <motion.div animate={liveMotion ? { opacity: [.28, .55, .28], scale: [1, 1.08, 1] } : undefined} transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }} aria-hidden="true" className="absolute left-1/2 top-[18%] h-[46%] w-[55%] -translate-x-1/2 rounded-full bg-mango/25 blur-2xl will-change-transform" />
+        <motion.div style={{ x: leafX }} className="absolute right-[13%] top-[10%] z-20"><motion.span initial={{ opacity: 0, y: -35, rotate: -25 }} animate={{ opacity: 1, y: 0, rotate: -10 }} transition={{ type: 'spring', stiffness: 72, damping: 18, delay: .54 }} className="block h-11 w-8 rounded-[100%_0_100%_0] bg-[#79a950] shadow-[inset_3px_3px_5px_rgba(255,255,255,.28),0_12px_16px_rgba(0,0,0,.26)] will-change-transform md:h-20 md:w-14" /></motion.div>
+        <motion.div style={{ x: productX, y: productY }} className="absolute bottom-[-9%] left-1/2 z-30 h-[105%] w-[103%] max-w-[590px] -translate-x-1/2 md:bottom-[-6%] md:h-[105%]">
+          <motion.div initial={{ opacity: 0, y: -116, rotate: -10, scale: .9 }} animate={{ opacity: 1, y: 0, rotate: -4, scale: 1 }} transition={{ type: 'spring', stiffness: 58, damping: 16, delay: .42 }} className="h-full w-full will-change-transform"><motion.img animate={liveMotion ? { y: [0, -5, 0] } : undefined} transition={{ duration: 6.8, repeat: Infinity, ease: 'easeInOut', delay: 1.25 }} src={ASSETS.products.mangoCream} alt="Mango Cream dessert" className="h-full w-full object-contain drop-shadow-[0_35px_24px_rgba(0,0,0,.48)] will-change-transform" /></motion.div>
+        </motion.div>
+        <motion.div style={{ x: drinkX }} className="absolute bottom-[8%] left-[4%] z-40 hidden h-[49%] w-[25%] md:block"><motion.img initial={{ opacity: 0, y: -100, rotate: -14, scale: .88 }} animate={{ opacity: 1, y: 0, rotate: 9, scale: 1 }} transition={{ type: 'spring', stiffness: 56, damping: 16, delay: .58 }} src={ASSETS.products.mangoMojito} alt="Mango boba mojito" className="h-full w-full object-contain drop-shadow-[0_24px_18px_rgba(0,0,0,.42)] will-change-transform" /></motion.div>
+        <motion.div animate={liveMotion ? { scaleX: [1, 1.08, 1], opacity: [.42, .62, .42] } : undefined} transition={{ duration: 5.6, repeat: Infinity, ease: 'easeInOut' }} className="absolute bottom-[10%] left-1/2 z-20 h-8 w-[54%] -translate-x-1/2 rounded-[100%] bg-black/42 blur-xl will-change-transform md:h-11" />
+      </motion.div>
+
+      <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.08, duration: .55, ease }} className="relative z-10 mt-1 md:hidden"><p className="max-w-[30rem] text-sm leading-relaxed text-ink/70">Made for happy days — one bright scoop, sip and shared moment at a time.</p><div className="mt-4 flex flex-wrap gap-2.5"><MagneticLink href="#experience">Explore Menu</MagneticLink><MagneticLink href="#visit" dark={false}>Find Us</MagneticLink></div></motion.div>
     </div>
   </section>;
 }
 
 function MangoMarquee() {
-  const ref = useRef<HTMLElement>(null);
-  const reduced = useReducedMotion();
-  const inView = useInView(ref, { amount: 0.1 });
-  return <section ref={ref} className="overflow-hidden bg-ink py-5 text-mango"><div className={`flex w-max whitespace-nowrap text-xl font-black uppercase tracking-[-.04em] md:text-3xl ${!reduced && inView ? 'animate-[marquee_22s_linear_infinite]' : ''}`}>{Array(6).fill('Mango season is every season. ✦ ').map((text, index) => <span key={index} className="mx-3">{text}</span>)}</div></section>;
+  return <section className="overflow-hidden border-y border-mango/15 bg-ink py-4 text-mango md:py-5"><div className="flex w-max animate-[marquee_22s_linear_infinite] whitespace-nowrap text-[.72rem] font-black uppercase tracking-[.08em] will-change-transform md:text-3xl md:tracking-[-.04em]">{Array(8).fill('Mango season is every season. ✦ ').map((text, index) => <span key={index} className="mx-4">{text}</span>)}</div></section>;
 }
 
 function LiquidPortal() {
@@ -102,7 +98,7 @@ function LiquidPortal() {
   const inView = useInView(ref, { amount: 0.04 });
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
   const productY = useTransform(scrollYProgress, [0, .16, .46, .76, 1], ['18%', '9%', '-4%', '-19%', '-35%']);
-  const productX = useTransform(scrollYProgress, [0, .55, 1], ['-4%', '0%', '7%']);
+  const productX = useTransform(scrollYProgress, [0, .55, 1], ['-4%', '12%', '16%']);
   const productScale = useTransform(scrollYProgress, [0, .2, .58, .84, 1], [.78, .94, 1.07, .86, .68]);
   const productRotate = useTransform(scrollYProgress, [0, .42, .78, 1], [-14, -3, 8, 17]);
   const juicyY = useTransform(scrollYProgress, [0, .22, .7, 1], ['0%', '-10%', '-36%', '-60%']);
@@ -133,21 +129,23 @@ function LiquidPortal() {
       <motion.div animate={liveMotion ? { rotate: [-13, 16, -13], y: [0, -9, 0] } : undefined} transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }} className="absolute right-[8%] top-[24%] z-20 h-16 w-11 rounded-[100%_0_100%_0] bg-[#5b9d47] shadow-[inset_3px_3px_5px_rgba(255,255,255,.35),0_10px_14px_rgba(0,0,0,.12)] will-change-transform md:right-[12%] md:top-[17%] md:h-32 md:w-20" />
       <motion.span animate={liveMotion ? { y: [0, 14, 0], scale: [1, .84, 1] } : undefined} transition={{ duration: 4.8, repeat: Infinity, ease: 'easeInOut' }} className="absolute left-[14%] top-[42%] z-20 h-5 w-5 rounded-full bg-[#fff0a5] shadow-[inset_2px_2px_4px_rgba(255,255,255,.85),0_8px_11px_rgba(0,0,0,.12)] will-change-transform md:left-[18%] md:top-[32%] md:h-7 md:w-7" />
       <motion.span animate={liveMotion ? { y: [0, -10, 0], x: [0, 7, 0] } : undefined} transition={{ duration: 6.5, repeat: Infinity, ease: 'easeInOut' }} className="absolute bottom-[29%] right-[15%] z-20 h-3 w-3 rounded-full bg-mango-deep shadow-[inset_2px_2px_3px_rgba(255,255,255,.65),0_8px_11px_rgba(0,0,0,.14)] will-change-transform md:h-5 md:w-5" />
-      <motion.div style={{ opacity: menuOpacity, scale: wordScale }} className="absolute bottom-[27%] left-5 z-30 max-w-[18rem] origin-bottom-left will-change-transform md:bottom-[25%] md:left-[9%] md:max-w-[36rem]">
+      <motion.div style={{ opacity: menuOpacity, scale: wordScale }} className="absolute bottom-[28%] left-5 z-30 max-w-[20rem] origin-bottom-left will-change-transform md:bottom-[26%] md:left-[5%] md:max-w-none">
         <p className="eyebrow mb-3">A full-sensory hello</p>
-        <p className="display overflow-hidden text-[clamp(3.6rem,13vw,8.2rem)] leading-[.72]"><motion.span style={{ y: menuY }} className="block will-change-transform">Not a <i className="font-light">menu.</i></motion.span></p>
+        <p className="display overflow-hidden text-[3.55rem] leading-[.78] md:text-[clamp(4.5rem,6vw,5.8rem)]"><motion.span style={{ y: menuY }} className="block whitespace-nowrap will-change-transform">Not a <i className="font-light">menu.</i></motion.span></p>
       </motion.div>
-      <motion.div style={{ opacity: moodOpacity, scale: wordScale }} className="absolute bottom-[13%] left-5 z-30 max-w-[20rem] origin-bottom-left will-change-transform md:bottom-[11%] md:left-[9%] md:max-w-[40rem]">
-        <p className="display overflow-hidden text-[clamp(3.8rem,14vw,9rem)] leading-[.72]"><motion.span style={{ y: moodY }} className="block bg-gradient-to-b from-ink to-ink/70 bg-clip-text text-transparent">A mood <i className="font-light">shift.</i></motion.span></p>
+      <motion.div style={{ opacity: moodOpacity, scale: wordScale }} className="absolute bottom-[14%] left-5 z-30 max-w-[22rem] origin-bottom-left will-change-transform md:bottom-[11%] md:left-[5%] md:max-w-none">
+        <p className="display overflow-hidden text-[3.7rem] leading-[.78] md:text-[clamp(5.2rem,7vw,7rem)]"><motion.span style={{ y: moodY }} className="block whitespace-nowrap bg-gradient-to-b from-ink to-ink/70 bg-clip-text text-transparent will-change-transform">A mood <i className="font-light">shift.</i></motion.span></p>
       </motion.div>
       <motion.div style={{ opacity: captionOpacity }} className="absolute bottom-9 left-5 z-30 flex max-w-[11rem] items-end gap-3 text-left text-[10px] font-bold uppercase tracking-[.17em] md:bottom-11 md:left-auto md:right-[9%] md:max-w-[15rem] md:text-right"><span className="h-px w-8 shrink-0 bg-ink/70" />Fruit-forward. Full feeling.</motion.div>
       <motion.div style={{ opacity: captionOpacity }} className="absolute right-[7%] top-[40%] z-20 hidden md:block"><motion.img animate={liveMotion ? { y: [0, -8, 0], rotate: [-4, 3, -4] } : undefined} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }} src={ASSETS.products.mangoMojito} alt="Mango boba mojito" loading="lazy" decoding="async" className="h-64 w-40 object-contain drop-shadow-[0_26px_18px_rgba(0,0,0,.2)] will-change-transform lg:h-80 lg:w-52" /></motion.div>
-      <motion.div style={{ y: exitY, opacity: exitOpacity }} className="absolute inset-x-0 bottom-0 z-40 flex h-[62%] flex-col justify-end rounded-t-[3.2rem] bg-vanilla px-5 pb-11 text-ink shadow-[0_-18px_34px_rgba(16,59,43,.16)] will-change-transform md:h-[68%] md:rounded-t-[4rem] md:px-[9%] md:pb-16">
-        <div aria-hidden="true" className="absolute inset-x-5 top-12 border-t border-dashed border-ink/20 md:inset-x-[9%] md:top-16" />
-        <img src={ASSETS.brandMark} alt="" aria-hidden="true" loading="lazy" decoding="async" className="absolute right-5 top-14 h-32 w-36 rotate-[-8deg] object-contain opacity-90 md:right-[10%] md:top-12 md:h-52 md:w-56" />
-        <p className="eyebrow text-mango-deep">Next chapter</p>
-        <p className="display mt-3 max-w-xl text-[clamp(2.7rem,7vw,6rem)] leading-[.79]">A bag of mangoes.<br /><i className="font-light text-mango-deep">A big possibility.</i></p>
-        <p className="mt-4 max-w-sm text-sm leading-relaxed text-ink/68">From Kerala to Bangalore, then into every bright little moment that followed.</p>
+      <motion.div style={{ y: exitY, opacity: exitOpacity }} className="absolute inset-x-0 bottom-0 z-40 flex h-[62%] items-end rounded-t-[3.2rem] bg-vanilla px-5 pb-10 text-ink shadow-[0_-18px_34px_rgba(16,59,43,.16)] will-change-transform md:h-[68%] md:rounded-t-[4rem] md:px-[9%] md:pb-16">
+        <div aria-hidden="true" className="absolute inset-x-5 top-10 border-t border-dashed border-ink/20 md:inset-x-[9%] md:top-16" />
+        <img src={ASSETS.brandMark} alt="" aria-hidden="true" loading="lazy" decoding="async" className="absolute right-[9%] top-14 hidden h-48 w-52 rotate-[-8deg] object-contain md:block" />
+        <div className="relative max-w-[34rem]">
+          <p className="eyebrow text-mango-deep">Next chapter</p>
+          <h2 className="display mt-3 max-w-[9ch] text-[clamp(2.9rem,12vw,4.3rem)] leading-[.9] tracking-[-.065em] md:max-w-none md:text-[clamp(4rem,6vw,6rem)]">A bag of mangoes.<br /><i className="font-light text-mango-deep">A big possibility.</i></h2>
+          <p className="mt-5 max-w-[35ch] text-sm leading-relaxed text-ink/68">From Kerala to Bangalore, then into every bright little moment that followed.</p>
+        </div>
       </motion.div>
     </div>
   </section>;
@@ -236,9 +234,47 @@ function ProductUniverse() { const [active, setActive] = useState(0); const curr
 function Experience() {
   const ref = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
-  const inView = useInView(ref, { amount: 0.1 });
+  const inView = useInView(ref, { amount: 0.08 });
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
+  const productY = useTransform(scrollYProgress, [0, .25, .72, 1], ['16%', '3%', '-8%', '-24%']);
+  const productScale = useTransform(scrollYProgress, [0, .3, .68, 1], [.74, .95, 1.07, .82]);
+  const productRotate = useTransform(scrollYProgress, [0, .55, 1], [-10, -2, 9]);
+  const noteY = useTransform(scrollYProgress, [.28, .48, .84, 1], ['90%', '0%', '0%', '-45%']);
+  const noteOpacity = useTransform(scrollYProgress, [.28, .46, .87, 1], [0, 1, 1, 0]);
+  const curtainY = useTransform(scrollYProgress, [.75, 1], ['105%', '0%']);
   const liveMotion = !reduced && inView;
-  return <section ref={ref} className="relative overflow-hidden bg-pink px-5 py-20 text-cream md:px-10 md:py-28"><motion.p animate={liveMotion ? { x: ['0%', '-12%', '0%'] } : undefined} transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }} className="display absolute -top-6 whitespace-nowrap text-[25vw] leading-none text-cream/15 will-change-transform">HAPPY HAPPY</motion.p><div className="relative mx-auto grid max-w-7xl items-center gap-10 md:grid-cols-2"><div><p className="eyebrow">Make it a moment</p><h2 className="display mt-3 text-5xl leading-[.85] md:text-7xl">Big flavour.<br /><i className="font-light">Zero boring.</i></h2><p className="mt-6 max-w-sm text-sm leading-relaxed text-cream/80">A table full of your favourites, an extra spoon, and no reason to rush it.</p></div><div className="relative h-[360px]"><motion.img animate={liveMotion ? { y: [0, -14, 0], rotate: [-2, 2, -2] } : undefined} transition={{ duration: 5.5, repeat: Infinity }} src={ASSETS.products.strawberryChocolate} alt="Strawberry chocolate dessert" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-contain drop-shadow-xl md:drop-shadow-2xl will-change-transform" /><img src={ASSETS.products.pistachioSundae} alt="" aria-hidden="true" loading="lazy" decoding="async" className="absolute -bottom-7 -left-7 h-36 w-36 object-contain drop-shadow-xl md:h-48 md:w-48" /></div></div></section>;
+
+  return <section ref={ref} id="flavour" className="relative h-[230svh] overflow-clip bg-pink text-cream md:h-[210vh]">
+    <div className="sticky top-0 isolate h-[100svh] overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_18%,rgba(255,219,136,.35),transparent_16%),radial-gradient(circle_at_12%_83%,rgba(101,39,32,.5),transparent_30%),linear-gradient(145deg,#ef617b_0%,#d94767_49%,#a83f54_100%)]" />
+      <div className="grain pointer-events-none absolute inset-0 opacity-[.08]" />
+      <motion.p animate={liveMotion ? { x: ['0%', '-6%', '0%'] } : undefined} transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }} aria-hidden="true" className="display pointer-events-none absolute -right-[10%] top-[7%] whitespace-nowrap text-[25vw] leading-none text-cream/[.12] will-change-transform">FLAVOUR</motion.p>
+      <div className="absolute inset-x-0 top-36 mx-auto h-[calc(100%-9rem)] max-w-7xl px-5 pt-28 md:px-10 md:pt-32">
+        <div className="relative z-30 max-w-[19rem] md:max-w-[35rem]">
+          <p className="eyebrow flex items-center gap-3 text-cream/80"><span className="h-px w-8 bg-cream/55" />Make it a moment</p>
+          <h2 className="display mt-4 text-[clamp(3.55rem,12vw,7.8rem)] leading-[.83] tracking-[-.075em]">
+            <span className="block overflow-hidden pb-2"><motion.span initial={{ y: '110%' }} animate={{ y: 0 }} transition={{ delay: .12, duration: .72, ease }} className="block">Big flavour.</motion.span></span>
+            <span className="block overflow-hidden"><motion.span initial={{ y: '110%' }} animate={{ y: 0 }} transition={{ delay: .22, duration: .72, ease }} className="block"><i className="font-light text-[#ffe0a2]">Zero boring.</i></motion.span></span>
+          </h2>
+        </div>
+
+        <motion.div style={{ y: productY, scale: productScale, rotate: productRotate }} className="pointer-events-none absolute left-1/2 top-[28%] z-20 h-[52%] w-[100%] max-w-[620px] -translate-x-1/2 will-change-transform md:left-[67%] md:top-[14%] md:h-[76%] md:w-[54%]">
+          <div aria-hidden="true" className="absolute left-1/2 top-[18%] h-[62%] w-[74%] -translate-x-1/2 rounded-[49%_51%_43%_57%/50%_42%_58%_50%] bg-[radial-gradient(circle_at_36%_22%,rgba(255,228,175,.72),transparent_17%),linear-gradient(145deg,#6a3529_0%,#351c1a_100%)] shadow-[inset_18px_18px_28px_rgba(255,255,255,.1),inset_-20px_-24px_32px_rgba(0,0,0,.35)]" />
+          <span aria-hidden="true" className="absolute bottom-[11%] left-1/2 h-12 w-[58%] -translate-x-1/2 rounded-[100%] bg-[#4a1720]/55 blur-xl" />
+          <motion.img animate={liveMotion ? { y: [0, -9, 0] } : undefined} transition={{ duration: 6.2, repeat: Infinity, ease: 'easeInOut' }} src={ASSETS.products.strawberryChocolate} alt="Strawberry chocolate dessert" loading="lazy" decoding="async" className="relative z-10 h-full w-full object-contain drop-shadow-[0_32px_26px_rgba(54,14,20,.5)] will-change-transform" />
+          <span aria-hidden="true" className="absolute right-[13%] top-[17%] z-20 h-5 w-5 rounded-full bg-[#ffe0a2] shadow-[inset_2px_2px_3px_rgba(255,255,255,.8),0_8px_14px_rgba(0,0,0,.2)]" />
+        </motion.div>
+
+        <motion.div style={{ y: noteY, opacity: noteOpacity }} className="absolute bottom-[14%] left-5 z-30 max-w-[15rem] will-change-transform md:bottom-[19%] md:left-10 md:max-w-sm">
+          <p className="text-base font-medium leading-relaxed text-cream/88 md:text-lg">A table full of favourites, an extra spoon, and no reason to rush it.</p>
+          <div className="mt-5 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[.18em] text-[#ffe0a2]"><span className="h-8 w-px bg-[#ffe0a2]/65" />Strawberry · chocolate · joy</div>
+        </motion.div>
+      </div>
+      <motion.div style={{ y: curtainY }} className="absolute inset-x-0 bottom-0 z-40 flex h-[37%] items-end bg-ink px-5 pb-9 text-cream shadow-[0_-20px_38px_rgba(65,19,29,.25)] will-change-transform md:h-[34%] md:px-10 md:pb-12">
+        <div className="mx-auto flex w-full max-w-7xl items-end justify-between gap-5"><div><p className="eyebrow text-mango">The ritual continues</p><p className="display mt-2 max-w-[10ch] text-4xl leading-[.86] md:max-w-none md:text-6xl">One more spoon.<br /><i className="font-light text-mango">Make it yours.</i></p></div><ArrowUpRight className="mb-1 shrink-0 text-mango md:h-9 md:w-9" /></div>
+      </motion.div>
+    </div>
+  </section>;
 }
 
 function SocialProof() {
@@ -364,11 +400,24 @@ function Footer() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { amount: 0.08 });
   const liveMotion = !reduced && inView;
+
   return <footer ref={ref} className="relative overflow-hidden bg-ink px-5 pb-8 pt-20 text-cream md:px-10 md:pt-28">
-    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-mango to-transparent" /><div className="absolute -left-36 top-[-12rem] h-[38rem] w-[38rem] rounded-full bg-mango/20 blur-2xl md:blur-3xl" /><div className="absolute -bottom-48 right-[-8rem] h-[32rem] w-[32rem] rounded-full bg-pink/20 blur-2xl md:blur-3xl" /><div className="grain pointer-events-none absolute inset-0 opacity-20" />
-    <div className="relative mx-auto max-w-7xl"><div className="relative overflow-hidden rounded-[2.8rem] border border-white/15 bg-white/[.055] px-6 py-10 shadow-[inset_0_1px_0_rgba(255,255,255,.12)] md:px-10 md:py-14 md:backdrop-blur-sm"><motion.img animate={liveMotion ? { y: [0, -10, 0], rotate: [-2, 2, -2] } : undefined} transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }} src={ASSETS.products.mangoMojito} alt="" aria-hidden="true" loading="lazy" decoding="async" className="pointer-events-none absolute -right-4 bottom-[-4rem] h-64 w-44 object-contain opacity-80 drop-shadow-[0_25px_22px_rgba(0,0,0,.5)] will-change-transform md:right-[7%] md:h-80 md:w-56" /><div className="relative max-w-3xl"><p className="eyebrow text-mango">The last scoop</p><h2 className="display mt-5 text-5xl leading-[.82] md:text-8xl">A little happy<br/><i className="font-light text-mango">goes a long way.</i></h2><p className="mt-6 max-w-md text-sm leading-relaxed text-cream/65">Meet us in the Mango’s universe — a place for one more spoon, one more sip, and the next good mood.</p><div className="mt-8"><MagneticLink href="#visit" dark={false}>Find your Mango's</MagneticLink></div></div></div>
-      <div className="mt-16 grid gap-12 md:grid-cols-[1.2fr_.8fr_.8fr]"><div className="flex items-center gap-3"><img src={ASSETS.brandMark} alt="Mango's" className="h-16 w-16 object-contain drop-shadow-[0_10px_18px_rgba(0,0,0,.3)]" /><span className="display text-4xl tracking-[-.09em] text-cream">MANGO'S</span></div><div><p className="eyebrow text-mango">Say hello</p><a href="mailto:hello@mangoscreamery.com" className="mt-4 block text-lg font-bold transition-colors hover:text-mango">hello@mangoscreamery.com</a><a href="mailto:franchise@mangoscreamery.com" className="mt-2 block text-sm text-cream/65 transition-colors hover:text-mango">franchise@mangoscreamery.com</a></div><div><p className="eyebrow text-mango">Follow along</p><a href="#top" className="mt-4 flex items-center gap-2 text-lg font-bold transition-colors hover:text-mango"><Instagram size={18} /> Instagram <ArrowUpRight size={15} /></a><a href="#visit" className="mt-2 flex items-center gap-2 text-sm text-cream/65 transition-colors hover:text-mango"><MapPin size={16} /> Find your Mango's</a></div></div><div className="mt-16 flex flex-col justify-between gap-3 border-t border-white/15 pt-5 text-[11px] font-bold uppercase tracking-[.14em] text-cream/50 md:flex-row"><span>© {new Date().getFullYear()} Mango's. All rights reserved.</span><span>Ice creams · waffles · shakes</span></div></div>
+    <div aria-hidden="true" className="absolute -left-36 top-[-12rem] h-[38rem] w-[38rem] rounded-full bg-mango/18 blur-3xl" />
+    <div aria-hidden="true" className="absolute -bottom-48 right-[-8rem] h-[32rem] w-[32rem] rounded-full bg-pink/16 blur-3xl" />
+    <div className="grain pointer-events-none absolute inset-0 opacity-[.14]" />
+    <div className="relative mx-auto max-w-7xl">
+      <section className="relative overflow-hidden rounded-[2.7rem] border border-white/15 bg-white/[.05] px-6 py-10 shadow-[inset_0_1px_0_rgba(255,255,255,.12)] md:px-10 md:py-14">
+        <motion.img animate={liveMotion ? { y: [0, -9, 0], rotate: [-2, 2, -2] } : undefined} transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }} src={ASSETS.products.mangoMojito} alt="" aria-hidden="true" loading="lazy" decoding="async" className="pointer-events-none absolute -right-6 bottom-[-4rem] h-64 w-44 object-contain opacity-80 drop-shadow-[0_25px_22px_rgba(0,0,0,.5)] will-change-transform md:right-[7%] md:h-80 md:w-56" />
+        <div className="relative max-w-3xl"><p className="eyebrow text-mango">The last scoop</p><h2 className="display mt-5 text-5xl leading-[.84] tracking-[-.07em] md:text-8xl">A little happy<br /><i className="font-light text-mango">goes a long way.</i></h2><p className="mt-6 max-w-md text-sm leading-relaxed text-cream/65">Meet us in the Mango’s universe — a place for one more spoon, one more sip, and the next good mood.</p><div className="mt-8"><MagneticLink href="#visit" dark={false}>Find your Mango's</MagneticLink></div></div>
+      </section>
+      <div className="mt-16 grid gap-12 md:grid-cols-[1.2fr_.8fr_.8fr]">
+        <div className="relative w-[240px]"><div aria-hidden="true" className="absolute -inset-8 rounded-full bg-[radial-gradient(circle,rgba(255,215,90,.72),rgba(255,185,0,.18)_42%,transparent_70%)] blur-xl" /><OfficialWordmark className="relative w-[240px]" alt="Mango's — Ice creams, waffles and shakes" /></div>
+        <div><p className="eyebrow text-mango">Say hello</p><a href="mailto:hello@mangoscreamery.com" className="mt-4 block text-lg font-bold transition-colors hover:text-mango">hello@mangoscreamery.com</a><a href="mailto:franchise@mangoscreamery.com" className="mt-2 block text-sm text-cream/65 transition-colors hover:text-mango">franchise@mangoscreamery.com</a></div>
+        <div><p className="eyebrow text-mango">Follow along</p><a href="#top" className="mt-4 flex items-center gap-2 text-lg font-bold transition-colors hover:text-mango"><Instagram size={18} /> Instagram <ArrowUpRight size={15} /></a><a href="#visit" className="mt-2 flex items-center gap-2 text-sm text-cream/65 transition-colors hover:text-mango"><MapPin size={16} /> Find your Mango's</a></div>
+      </div>
+      <div className="mt-16 flex flex-col justify-between gap-3 border-t border-white/15 pt-5 text-[11px] font-bold uppercase tracking-[.14em] text-cream/50 md:flex-row"><span>© {new Date().getFullYear()} Mango's. All rights reserved.</span><span>Ice creams · waffles · shakes</span></div>
+    </div>
   </footer>;
 }
 
-export default function Home() { return <main id="top" className="overflow-x-clip"><Helmet><title>Mango's | Made for happy days</title><meta name="description" content="Mango's ice creams, waffles and shakes — made for happy days." /></Helmet><Intro /><Hero /><MangoMarquee /><LiquidPortal /><Story /><ProductUniverse /><Experience /><SocialProof /><Locations /><Franchise /><Footer /><BackToTop /></main>; }
+export default function Home() { return <main id="top" className="overflow-x-clip"><Helmet><title>Mango's | Ice Creams, Waffles & Shakes</title><meta name="description" content="Mango's serves ice creams, waffles, shakes, sundaes, falooda and bright mango moments." /><meta property="og:title" content="Mango's | Ice Creams, Waffles & Shakes" /><meta property="og:description" content="Ice creams, waffles, shakes, sundaes, falooda and bright mango moments." /><meta property="og:site_name" content="Mango's" /><meta property="og:type" content="website" /></Helmet><Intro /><Hero /><MangoMarquee /><LiquidPortal /><Story /><ProductUniverse /><Experience /><SocialProof /><Locations /><Franchise /><Footer /><BackToTop /></main>; }
