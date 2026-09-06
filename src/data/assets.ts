@@ -12,5 +12,7 @@ import strawberryCream from '../assets/products/new/strawberry-cream.png';
 import pistachioSundae from '../assets/products/new/pistachio-sundae.png';
 import franchiseReference from '../assets/franchise-reference.jpeg';
 import brandMark from '../assets/brand/mangos-runner-mark.png';
+import dryfruitbowl from '../assets/products/new/dryfruit-bowl.png';
 
-export const ASSETS = { logo, brandMark, franchiseReference, hero: mangoCream, products: { chocolateShake, biscoffSundae, blueMojito, kulfiFalooda, mangoMojito, hotFudge, dryFruitKulfi, strawberryChocolate, mangoCream, strawberryCream, pistachioSundae } };
+
+export const ASSETS = { logo, brandMark, franchiseReference, hero: mangoCream, products: { chocolateShake, dryfruitbowl, biscoffSundae, blueMojito, kulfiFalooda, mangoMojito, hotFudge, dryFruitKulfi, strawberryChocolate, mangoCream, strawberryCream, pistachioSundae } };
