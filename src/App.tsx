@@ -4,6 +4,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import Lenis from 'lenis';
 import { MotionConfig } from 'framer-motion';
 import Home from './pages/Home';
+import LocationDirectory from './pages/LocationDirectory';
 import Layout from './components/layout/Layout';
 
 const ScrollManager = () => {
@@ -42,7 +43,7 @@ export default function App() {
           <Layout>
             <Routes>
               <Route path="/" element={<Home />} />
-              {/* Future routes: /menu, /locations, /franchise */}
+              <Route path="/locations/:region" element={<LocationDirectory />} />
             </Routes>
           </Layout>
         </Router>
