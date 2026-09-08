@@ -5,6 +5,7 @@ import { ArrowUpRight, CupSoda, Grid2X2, IceCreamCone, Instagram, MapPin } from 
 import { Link } from 'react-router-dom';
 import { ASSETS } from '../data/assets';
 import mangosCinematicHero from '../assets/hero/mangos-cinematic-hero.mp4';
+import mangosCinematicHeroSafari from '../assets/hero/mangos-cinematic-hero-safari.mp4';
 
 const ease = [0.16, 1, 0.3, 1] as const;
 const products = [
@@ -52,8 +53,37 @@ function HeroCopy() {
 
 function HeroArtwork() {
   const reduced = useReducedMotion();
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-  return <motion.video initial={reduced ? false : { opacity: 0, scale: 1.045 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.15, ease }} autoPlay={!reduced} loop muted playsInline preload="auto" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover object-[58%_center] lg:object-center">
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || reduced) return;
+
+    const playSafely = () => {
+      video.muted = true;
+      video.defaultMuted = true;
+      video.playsInline = true;
+      video.setAttribute('muted', '');
+      video.setAttribute('playsinline', '');
+      void video.play().catch(() => undefined);
+    };
+
+    const resumeWhenVisible = () => {
+      if (!document.hidden) playSafely();
+    };
+
+    playSafely();
+    video.addEventListener('canplay', playSafely);
+    document.addEventListener('visibilitychange', resumeWhenVisible);
+
+    return () => {
+      video.removeEventListener('canplay', playSafely);
+      document.removeEventListener('visibilitychange', resumeWhenVisible);
+    };
+  }, [reduced]);
+
+  return <motion.video ref={videoRef} initial={reduced ? false : { opacity: 0, scale: 1.045 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.15, ease }} autoPlay={!reduced} loop muted playsInline preload="auto" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover object-[58%_center] lg:object-center">
+    <source src={mangosCinematicHeroSafari} type="video/mp4" />
     <source src={mangosCinematicHero} type="video/mp4" />
   </motion.video>;
 }
@@ -140,7 +170,7 @@ function Story() {
         <p className="eyebrow flex items-center gap-3 text-mango-deep"><span className="h-px w-8 bg-mango-deep/55" />A bag of mangoes. A big possibility.</p>
         <h2 className="display mt-4 text-[clamp(3.15rem,11.5vw,7rem)] leading-[.84] tracking-[-.075em] sm:mt-5">
           <span className="block pb-[.16em]">More than a</span>
-          <span className="block pb-[.16em]"><i className="font-light text-mango-deep">sweet stop.</i></span>
+          <span className="block pb-[.16em]">sweet stop.</span>
         </h2>
         <p className="mt-5 max-w-[37ch] text-sm leading-relaxed text-ink/72 sm:mt-6 sm:text-base lg:text-lg">It started with a 16-year-old arriving in Bangalore with a bag of mangoes and a big appetite for possibility. Today, that same bright energy is shared across Bangalore and the UAE.</p>
       </div>
@@ -165,7 +195,7 @@ function ProductUniverse() {
   return <section id="experience" className="overflow-hidden bg-night px-5 py-24 text-cream md:px-10 md:py-32">
     <div className="mx-auto max-w-7xl">
       <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-        <div><p className="eyebrow text-mango">The good stuff</p><h2 className="display mt-3 text-5xl leading-[.86] md:text-7xl">Find your<br /><i className="font-light text-mango">favourite mood.</i></h2></div>
+        <div><p className="eyebrow text-mango">The good stuff</p><h2 className="display mt-3 text-5xl leading-[.86] md:text-7xl">Find your<br /><span>favourite mood.</span></h2></div>
         <div className="flex max-w-sm flex-col items-start gap-5 md:items-end"><p className="text-sm leading-relaxed text-cream/65 md:text-right">A colourful little universe of ice creams, shakes, falooda and feel-good extras. Explore the range, then let the craving decide.</p><MagneticLink href="#experience" dark={false}>View Full Menu</MagneticLink></div>
       </div>
       <div className="mt-12 grid gap-5 lg:grid-cols-[.8fr_1.2fr]">
@@ -244,7 +274,7 @@ function SocialProof() {
     <div className="grain pointer-events-none absolute inset-0 opacity-[.08]" />
     <div className="relative mx-auto max-w-7xl">
       <div className="grid gap-12 lg:grid-cols-[.95fr_1.05fr] lg:items-end">
-        <div><p className="eyebrow text-mango-deep">The ritual</p><h2 className="display mt-3 text-5xl leading-[.85] md:text-7xl">Good moods,<br/><i className="font-light text-mango-deep">on repeat.</i></h2><p className="mt-6 max-w-sm text-sm leading-relaxed text-ink/70">Pick your craving. Make it yours. Pass the spoon. That’s the whole process.</p></div>
+        <div><p className="eyebrow text-mango-deep">The ritual</p><h2 className="display mt-3 text-5xl leading-[.85] md:text-7xl">Good moods,<br/><span>on repeat.</span></h2><p className="mt-6 max-w-sm text-sm leading-relaxed text-ink/70">Pick your craving. Make it yours. Pass the spoon. That’s the whole process.</p></div>
         <p className="justify-self-end border-l border-ink/15 pl-5 text-sm leading-relaxed text-ink/65 md:max-w-xs">Designed as a bright, shareable dessert ritual — built around the moment, not just the menu.</p>
       </div>
       <div className="mt-10 grid gap-3 md:grid-cols-3">
@@ -258,7 +288,7 @@ function SocialProof() {
       <div className="relative mt-14 overflow-hidden rounded-[2.6rem] bg-ink px-6 py-10 text-cream shadow-[0_22px_0_#f18b00] md:px-10 md:py-14">
         <div className="absolute -right-24 top-[-8rem] h-80 w-80 rounded-full bg-mango/45 blur-2xl md:blur-3xl" /><div className="grain pointer-events-none absolute inset-0 opacity-20" />
         <motion.p animate={liveMotion ? { x: ['0%', '-8%', '0%'] } : undefined} transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }} aria-hidden="true" className="display pointer-events-none absolute bottom-[-.2em] left-0 whitespace-nowrap text-[20vw] leading-none text-cream/[.055] will-change-transform">MANGO LOVE</motion.p>
-        <div className="relative grid gap-12 lg:grid-cols-[.82fr_1.18fr] lg:items-end"><div><p className="eyebrow text-mango">Mango love</p><h2 className="display mt-5 text-5xl leading-[.86] md:text-7xl">Made to<br/><i className="font-light">pass around.</i></h2><p className="mt-6 max-w-sm text-sm leading-relaxed text-cream/65">One bright idea. Endless little happy moments. Explore the flavours, share the table and make the moment yours.</p></div><div className="border-t border-white/15">{faqs.map(([question, answer], index) => <button onClick={() => setOpen(open === index ? null : index)} key={question} className="group w-full border-b border-white/15 py-5 text-left"><span className="flex items-center justify-between gap-5 font-bold transition-colors group-hover:text-mango"><span>{question}</span><span aria-hidden="true" className="grid h-7 w-7 shrink-0 place-items-center rounded-full border border-white/20 text-mango">{open === index ? '−' : '+'}</span></span><AnimatePresence initial={false}>{open === index && <motion.p initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="max-w-lg overflow-hidden pt-3 text-sm leading-relaxed text-cream/65">{answer}</motion.p>}</AnimatePresence></button>)}</div></div>
+        <div className="relative grid gap-12 lg:grid-cols-[.82fr_1.18fr] lg:items-end"><div><p className="eyebrow text-mango">Mango love</p><h2 className="display mt-5 text-5xl leading-[.86] md:text-7xl">Made to<br/><span>pass around.</span></h2><p className="mt-6 max-w-sm text-sm leading-relaxed text-cream/65">One bright idea. Endless little happy moments. Explore the flavours, share the table and make the moment yours.</p></div><div className="border-t border-white/15">{faqs.map(([question, answer], index) => <button onClick={() => setOpen(open === index ? null : index)} key={question} className="group w-full border-b border-white/15 py-5 text-left"><span className="flex items-center justify-between gap-5 font-bold transition-colors group-hover:text-mango"><span>{question}</span><span aria-hidden="true" className="grid h-7 w-7 shrink-0 place-items-center rounded-full border border-white/20 text-mango">{open === index ? '−' : '+'}</span></span><AnimatePresence initial={false}>{open === index && <motion.p initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="max-w-lg overflow-hidden pt-3 text-sm leading-relaxed text-cream/65">{answer}</motion.p>}</AnimatePresence></button>)}</div></div>
       </div>
     </div>
   </section>;
@@ -270,7 +300,7 @@ function Locations() {
     { slug: 'uae', name: 'UAE', copy: 'A growing Mango’s world, made for happy days.', style: { background: 'radial-gradient(circle at 82% 18%,rgba(255,246,195,.45),transparent 22%),linear-gradient(135deg,#cf790d 0%,#f2a409 55%,#ffd464 100%)' }, textTone: 'text-ink', mutedTone: 'text-ink/65', accent: 'text-ink' },
   ];
 
-  return <section id="visit" className="relative overflow-hidden bg-vanilla px-5 py-24 md:px-10 md:py-32"><div className="grain absolute inset-0 opacity-10" /><div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.8fr_1.2fr]"><div><p className="eyebrow text-mango-deep">Find your little happy</p><h2 className="display mt-4 text-5xl leading-[.84] md:text-7xl">Two cities.<br /><i className="font-light">One bright mood.</i></h2><p className="mt-6 max-w-sm text-sm leading-relaxed text-ink/70">Mango’s is bringing its dessert ritual to people across Bangalore and the UAE.</p></div><div className="grid gap-4 md:grid-cols-2">{cities.map((city) => <Link key={city.slug} to={`/locations/${city.slug}`} aria-label={`Explore Mango's outlets in ${city.name}`} className="group relative min-h-[285px] overflow-hidden rounded-[2rem] border border-white/20 p-7 shadow-[0_14px_0_rgba(16,59,43,.18),0_21px_34px_rgba(16,59,43,.12)] transition-transform duration-500 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mango-deep focus-visible:ring-offset-4" style={city.style}><div aria-hidden="true" className="absolute -right-12 -top-16 h-48 w-48 rounded-full border border-white/20" /><div aria-hidden="true" className="absolute bottom-0 left-0 h-[44%] w-full bg-[linear-gradient(180deg,transparent,rgba(0,0,0,.17))]" /><MapPin className={`relative z-10 ${city.accent}`} /><div className="relative z-10 mt-16"><p className={`display text-4xl ${city.textTone}`}>{city.name}</p><p className={`mt-3 max-w-[18ch] text-sm leading-relaxed ${city.mutedTone}`}>{city.copy}</p></div><span className={`absolute bottom-6 left-7 z-10 inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-[.14em] ${city.textTone}`}>Explore outlets <ArrowUpRight size={15} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></span></Link>)}</div></div></section>;
+  return <section id="visit" className="relative overflow-hidden bg-vanilla px-5 py-24 md:px-10 md:py-32"><div className="grain absolute inset-0 opacity-10" /><div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.8fr_1.2fr]"><div><p className="eyebrow text-mango-deep">Find your little happy</p><h2 className="display mt-4 text-5xl leading-[.84] md:text-7xl">Two cities.<br /><span>One bright mood.</span></h2><p className="mt-6 max-w-sm text-sm leading-relaxed text-ink/70">Mango’s is bringing its dessert ritual to people across Bangalore and the UAE.</p></div><div className="grid gap-4 md:grid-cols-2">{cities.map((city) => <Link key={city.slug} to={`/locations/${city.slug}`} aria-label={`Explore Mango's outlets in ${city.name}`} className="group relative min-h-[285px] overflow-hidden rounded-[2rem] border border-white/20 p-7 shadow-[0_14px_0_rgba(16,59,43,.18),0_21px_34px_rgba(16,59,43,.12)] transition-transform duration-500 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mango-deep focus-visible:ring-offset-4" style={city.style}><div aria-hidden="true" className="absolute -right-12 -top-16 h-48 w-48 rounded-full border border-white/20" /><div aria-hidden="true" className="absolute bottom-0 left-0 h-[44%] w-full bg-[linear-gradient(180deg,transparent,rgba(0,0,0,.17))]" /><MapPin className={`relative z-10 ${city.accent}`} /><div className="relative z-10 mt-16"><p className={`display text-4xl ${city.textTone}`}>{city.name}</p><p className={`mt-3 max-w-[18ch] text-sm leading-relaxed ${city.mutedTone}`}>{city.copy}</p></div><span className={`absolute bottom-6 left-7 z-10 inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-[.14em] ${city.textTone}`}>Explore outlets <ArrowUpRight size={15} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></span></Link>)}</div></div></section>;
 }
 
 // function Franchise() { return <section id="franchise" className="bg-mango px-5 py-24 text-ink md:px-10 md:py-32"><div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.1fr_.9fr] lg:items-end"><motion.div initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: .75, ease }}><p className="eyebrow">Bring the joy closer</p><h2 className="display mt-4 max-w-3xl text-5xl leading-[.86] md:text-8xl">Build the next<br /><i className="font-light">happy place.</i></h2><p className="mt-7 max-w-md text-base leading-relaxed md:text-lg">Mango's is inviting thoughtful, growth-minded franchise partners to bring a memorable dessert experience to more neighbourhoods.</p><div className="mt-8"><MagneticLink href="mailto:franchise@mangoscreamery.com">Become a franchise partner</MagneticLink></div></motion.div><motion.div initial={{ opacity: 0, scale: .94 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: .7, ease }} className="rounded-[2rem] border border-ink/20 bg-cream/45 p-6 backdrop-blur-sm"><p className="eyebrow">The Mango's advantage</p><div className="mt-8 grid gap-6">{[['A brand people remember', 'A bright, recognisable identity made for repeat visits.'], ['Support that stays close', 'A collaborative relationship from set-up through launch.'], ['Room to grow', 'A focused opportunity for entrepreneurs who love hospitality.']].map(([title, description], i) => <div key={title} className="border-b border-ink/15 pb-5 last:border-0"><span className="text-xs font-bold">0{i + 1}</span><h3 className="mt-1 text-xl font-bold">{title}</h3><p className="mt-1 max-w-sm text-sm leading-relaxed opacity-75">{description}</p></div>)}</div></motion.div></div></section>; }
@@ -365,12 +395,12 @@ function Footer() {
     <div className="relative mx-auto max-w-7xl">
       <section className="relative overflow-hidden rounded-[2.7rem] border border-white/15 bg-white/[.05] px-6 py-10 shadow-[inset_0_1px_0_rgba(255,255,255,.12)] md:px-10 md:py-14">
         {/* <motion.img animate={liveMotion ? { y: [0, -9, 0], rotate: [-2, 2, -2] } : undefined} transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }} src={ASSETS.products.mangoMojito} alt="" aria-hidden="true" loading="lazy" decoding="async" className="pointer-events-none absolute -right-6 bottom-[-4rem] h-64 w-44 object-contain opacity-80 drop-shadow-[0_25px_22px_rgba(0,0,0,.5)] will-change-transform md:right-[7%] md:h-80 md:w-56" /> */}
-        <div className="relative max-w-3xl"><p className="eyebrow text-mango">The last scoop</p><h2 className="display mt-5 text-5xl leading-[.84] tracking-[-.07em] md:text-8xl">A little happy<br /><i className="font-light text-mango">goes a long way.</i></h2><p className="mt-6 max-w-md text-sm leading-relaxed text-cream/65">Meet us in the Mango’s universe — a place for one more spoon, one more sip, and the next good mood.</p><div className="mt-8"><MagneticLink href="#visit" dark={false}>Find your Mango's</MagneticLink></div></div>
+        <div className="relative max-w-3xl"><p className="eyebrow text-mango">The last scoop</p><h2 className="display mt-5 text-5xl leading-[.84] tracking-[-.07em] md:text-8xl">A little happy<br /><span>goes a long way.</span></h2><p className="mt-6 max-w-md text-sm leading-relaxed text-cream/65">Meet us in the Mango’s universe — a place for one more spoon, one more sip, and the next good mood.</p><div className="mt-8"><MagneticLink href="#visit" dark={false}>Find your Mango's</MagneticLink></div></div>
       </section>
       <div className="mt-16 grid gap-12 md:grid-cols-[1.2fr_.8fr_.8fr]">
         <div className="relative w-[240px]"><div aria-hidden="true" className="absolute -inset-8 rounded-full bg-[radial-gradient(circle,rgba(255,215,90,.72),rgba(255,185,0,.18)_42%,transparent_70%)] blur-xl" /><OfficialWordmark className="relative w-[240px]" alt="Mango's — Ice creams, waffles and shakes" /></div>
         <div><p className="eyebrow text-mango">Say hello</p><a href="mailto:hello@mangoscreamery.com" className="mt-4 block text-lg font-bold transition-colors hover:text-mango">hello@mangoscreamery.com</a><a href="mailto:franchise@mangoscreamery.com" className="mt-2 block text-sm text-cream/65 transition-colors hover:text-mango">franchise@mangoscreamery.com</a></div>
-        <div><p className="eyebrow text-mango">Follow along</p><a href="#top" className="mt-4 flex items-center gap-2 text-lg font-bold transition-colors hover:text-mango"><Instagram size={18} /> Instagram <ArrowUpRight size={15} /></a><a href="#visit" className="mt-2 flex items-center gap-2 text-sm text-cream/65 transition-colors hover:text-mango"><MapPin size={16} /> Find your Mango's</a></div>
+        <div><p className="eyebrow text-mango">Follow along</p><a href="https://www.instagram.com/mangoscreamery" target="_blank" rel="noreferrer" className="mt-4 flex items-center gap-2 text-lg font-bold transition-colors hover:text-mango"><Instagram size={18} /> Instagram <ArrowUpRight size={15} /></a><a href="#visit" className="mt-2 flex items-center gap-2 text-sm text-cream/65 transition-colors hover:text-mango"><MapPin size={16} /> Find your Mango's</a></div>
       </div>
       <div className="mt-16 flex flex-col justify-between gap-3 border-t border-white/15 pt-5 text-[11px] font-bold uppercase tracking-[.14em] text-cream/50 md:flex-row"><span>© {new Date().getFullYear()} Mango's. All rights reserved.</span><span>Ice creams · waffles · shakes</span></div>
     </div>
