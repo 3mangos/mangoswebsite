@@ -53,44 +53,29 @@ function HeroCopy() {
 }
 
 function HeroArtwork() {
-  const reduced = useReducedMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoUnavailable, setVideoUnavailable] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video || reduced || videoUnavailable) return;
+    if (!video) return;
 
-    const playSafely = () => {
-      video.muted = true;
-      video.defaultMuted = true;
-      video.playsInline = true;
-      video.setAttribute('muted', '');
-      video.setAttribute('playsinline', '');
-      video.setAttribute('webkit-playsinline', 'true');
-      void video.play().catch(() => undefined);
-    };
-
-    const resumeWhenVisible = () => {
-      if (!document.hidden) playSafely();
-    };
-
-    playSafely();
-    video.addEventListener('canplay', playSafely);
-    document.addEventListener('visibilitychange', resumeWhenVisible);
-
-    return () => {
-      video.removeEventListener('canplay', playSafely);
-      document.removeEventListener('visibilitychange', resumeWhenVisible);
-    };
-  }, [reduced, videoUnavailable]);
+    // Safari only permits autoplay for an inline, muted native video. Keep the
+    // attributes on the element as well as the DOM properties for iOS Safari.
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    video.setAttribute('muted', '');
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', 'true');
+  }, []);
 
   return <div className="absolute inset-0">
     <img src={mangosCinematicHeroPoster} alt="" aria-hidden="true" fetchPriority="high" decoding="async" className="absolute inset-0 h-full w-full object-cover object-[58%_center] lg:object-center" />
-    {!videoUnavailable && <motion.video ref={videoRef} initial={reduced ? false : { opacity: 0, scale: 1.045 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.15, ease }} autoPlay={!reduced} loop muted playsInline preload="auto" poster={mangosCinematicHeroPoster} onError={() => setVideoUnavailable(true)} aria-hidden="true" className="absolute inset-0 h-full w-full object-cover object-[58%_center] lg:object-center">
+    {!videoUnavailable && <video ref={videoRef} autoPlay loop muted playsInline preload="auto" poster={mangosCinematicHeroPoster} onError={() => setVideoUnavailable(true)} aria-hidden="true" className="absolute inset-0 h-full w-full object-cover object-[58%_center] lg:object-center">
       <source src={mangosCinematicHeroSafari} type="video/mp4" />
       <source src={mangosCinematicHero} type="video/mp4" />
-    </motion.video>}
+    </video>}
   </div>;
 }
 
