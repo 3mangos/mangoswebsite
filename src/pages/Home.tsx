@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { ASSETS } from '../data/assets';
 import mangosCinematicHero from '../assets/hero/mangos-cinematic-hero.mp4';
 import mangosCinematicHeroSafari from '../assets/hero/mangos-cinematic-hero-safari.mp4';
+import mangosCinematicHeroPoster from '../assets/hero/mangos-cinematic-hero-poster.png';
 
 const ease = [0.16, 1, 0.3, 1] as const;
 const products = [
@@ -54,10 +55,11 @@ function HeroCopy() {
 function HeroArtwork() {
   const reduced = useReducedMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoUnavailable, setVideoUnavailable] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video || reduced) return;
+    if (!video || reduced || videoUnavailable) return;
 
     const playSafely = () => {
       video.muted = true;
@@ -65,6 +67,7 @@ function HeroArtwork() {
       video.playsInline = true;
       video.setAttribute('muted', '');
       video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', 'true');
       void video.play().catch(() => undefined);
     };
 
@@ -80,12 +83,15 @@ function HeroArtwork() {
       video.removeEventListener('canplay', playSafely);
       document.removeEventListener('visibilitychange', resumeWhenVisible);
     };
-  }, [reduced]);
+  }, [reduced, videoUnavailable]);
 
-  return <motion.video ref={videoRef} initial={reduced ? false : { opacity: 0, scale: 1.045 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.15, ease }} autoPlay={!reduced} loop muted playsInline preload="auto" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover object-[58%_center] lg:object-center">
-    <source src={mangosCinematicHeroSafari} type="video/mp4" />
-    <source src={mangosCinematicHero} type="video/mp4" />
-  </motion.video>;
+  return <div className="absolute inset-0">
+    <img src={mangosCinematicHeroPoster} alt="" aria-hidden="true" fetchPriority="high" decoding="async" className="absolute inset-0 h-full w-full object-cover object-[58%_center] lg:object-center" />
+    {!videoUnavailable && <motion.video ref={videoRef} initial={reduced ? false : { opacity: 0, scale: 1.045 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.15, ease }} autoPlay={!reduced} loop muted playsInline preload="auto" poster={mangosCinematicHeroPoster} onError={() => setVideoUnavailable(true)} aria-hidden="true" className="absolute inset-0 h-full w-full object-cover object-[58%_center] lg:object-center">
+      <source src={mangosCinematicHeroSafari} type="video/mp4" />
+      <source src={mangosCinematicHero} type="video/mp4" />
+    </motion.video>}
+  </div>;
 }
 
 function HeroFeatureRail() {
@@ -196,7 +202,7 @@ function ProductUniverse() {
     <div className="mx-auto max-w-7xl">
       <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
         <div><p className="eyebrow text-mango">The good stuff</p><h2 className="display mt-3 text-5xl leading-[.86] md:text-7xl">Find your<br /><span>favourite mood.</span></h2></div>
-        <div className="flex max-w-sm flex-col items-start gap-5 md:items-end"><p className="text-sm leading-relaxed text-cream/65 md:text-right">A colourful little universe of ice creams, shakes, falooda and feel-good extras. Explore the range, then let the craving decide.</p><MagneticLink href="#experience" dark={false}>View Full Menu</MagneticLink></div>
+        <div className="max-w-sm md:ml-auto"><p className="text-sm leading-relaxed text-cream/65 md:text-right">A colourful little universe of ice creams, shakes, falooda and feel-good extras. Explore the range, then let the craving decide.</p></div>
       </div>
       <div className="mt-12 grid gap-5 lg:grid-cols-[.8fr_1.2fr]">
         <div className="grid grid-cols-2 gap-3 lg:grid-cols-1">{products.map((product, i) => <button key={product.name} onClick={() => setActive(i)} aria-pressed={i === active} className={`group flex items-center justify-between rounded-2xl border p-4 text-left transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mango focus-visible:ring-offset-2 focus-visible:ring-offset-night ${i === active ? 'border-mango bg-mango text-ink' : 'border-white/15 text-cream hover:border-white/50'}`}><span><span className="block text-[10px] font-bold uppercase tracking-[.16em] opacity-60">0{i + 1}</span><span className="mt-1 block text-sm font-bold md:text-base">{product.name}</span></span><ArrowUpRight className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" size={18} /></button>)}</div>
