@@ -100,7 +100,15 @@ function Hero() {
   </section>;
 }
 function MangoMarquee() {
-  return <section className="overflow-hidden border-y border-mango/15 bg-ink py-4 text-mango md:py-5"><div className="flex w-max animate-[marquee_22s_linear_infinite] whitespace-nowrap text-[.72rem] font-black uppercase tracking-[.08em] will-change-transform md:text-3xl md:tracking-[-.04em]">{Array(8).fill('Mango season is every season. ✦ ').map((text, index) => <span key={index} className="mx-4">{text}</span>)}</div></section>;
+  const words = Array.from({ length: 4 }, () => 'Mango season is every season. ✦');
+  const loop = (key: string) => <div className="mango-marquee-group">{words.map((text, index) => <span key={`${key}-${index}`} className="mango-marquee-item">{text}</span>)}</div>;
+
+  return <section aria-label="Mango season is every season" className="overflow-hidden border-y border-mango/15 bg-ink py-4 text-mango md:py-5">
+    <p className="sr-only">Mango season is every season.</p>
+    <div aria-hidden="true" className="mango-marquee-viewport">
+      <div className="mango-marquee-track">{loop('first')}{loop('second')}</div>
+    </div>
+  </section>;
 }
 
 function LiquidPortal() {
