@@ -6,7 +6,7 @@ import { ASSETS } from '../../data/assets';
 // Navigation links pointing to sections on the Home page
 const NAV_LINKS = [
   { label: 'Story', href: '/#story' },
-  { label: 'The Menu', href: '/#experience' },
+  { label: 'The Menu', href: '/menu' },
   { label: 'Locations', href: '/#visit' },
   { label: 'Franchise', href: '/#franchise' },
 ];

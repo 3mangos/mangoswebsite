@@ -4,7 +4,9 @@ import { HelmetProvider } from 'react-helmet-async';
 import Lenis from 'lenis';
 import { MotionConfig } from 'framer-motion';
 import Home from './pages/Home';
-import LocationDirectory from './pages/LocationDirectory';
+import Menu from './pages/Menu';
+import MenuCategoryDirectory from './pages/MenuCategoryDirectory';
+import BobaMenu from './pages/BobaMenu';
 import Layout from './components/layout/Layout';
 
 const ScrollManager = () => {
@@ -43,7 +45,9 @@ export default function App() {
           <Layout>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/locations/:region" element={<LocationDirectory />} />
+              <Route path="/menu" element={<Menu />} />
+              <Route path="/menu/:category/:collection" element={<BobaMenu />} />
+              <Route path="/menu/:category" element={<MenuCategoryDirectory />} />
             </Routes>
           </Layout>
         </Router>
