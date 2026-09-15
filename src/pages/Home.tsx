@@ -48,7 +48,7 @@ function HeroCopy() {
     </h1>
     <motion.span aria-hidden="true" initial={reduced ? false : { scaleX: 0, opacity: 0 }} animate={{ scaleX: 1, opacity: 1 }} transition={{ delay: .72, duration: .7, ease }} className="mx-auto mt-1 block h-px w-24 origin-center bg-gradient-to-r from-transparent via-[#ffd76e] to-transparent sm:w-32" />
     <motion.p initial={reduced ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .48, duration: .5, ease }} className="mx-auto mt-4 max-w-[32ch] text-[.98rem] leading-[1.52] text-cream/82 [text-shadow:0_3px_20px_rgba(0,0,0,.32)] sm:mt-5 sm:text-[1.08rem] lg:mt-7 lg:text-[1.13rem]">Everyday indulgence for ice creams, waffles, shakes and the moments worth making sweeter.</motion.p>
-    <motion.div initial={reduced ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .58, duration: .5, ease }} className="mx-auto mt-6 grid max-w-[25rem] grid-cols-2 gap-3 sm:mt-7 sm:flex sm:justify-center lg:mt-8"><MagneticLink className="justify-center bg-mango px-4 text-ink hover:text-ink sm:px-6" href="#experience">Explore Menu</MagneticLink><MagneticLink className="justify-center border-[#ffe19a]/80 bg-[#0b3829]/90 px-4 text-cream shadow-[inset_0_1px_0_rgba(255,255,255,.16),0_10px_24px_rgba(0,0,0,.24)] hover:text-cream sm:px-6" href="#visit" dark={false}>Find Us</MagneticLink></motion.div>
+    <motion.div initial={reduced ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .58, duration: .5, ease }} className="mx-auto mt-6 grid max-w-[25rem] grid-cols-2 gap-3 sm:mt-7 sm:flex sm:justify-center lg:mt-8"><MagneticLink className="justify-center bg-mango px-4 text-ink hover:text-ink sm:px-6" href="https://wa.me/919945041870">Contact us</MagneticLink><MagneticLink className="justify-center border-[#ffe19a]/80 bg-[#0b3829]/90 px-4 text-cream shadow-[inset_0_1px_0_rgba(255,255,255,.16),0_10px_24px_rgba(0,0,0,.24)] hover:text-cream sm:px-6" href="#visit" dark={false}>Find a store</MagneticLink></motion.div>
   </div>;
 }
 
@@ -171,13 +171,13 @@ function Story() {
           <span className="block pb-[.16em]">More than a</span>
           <span className="block pb-[.16em]">sweet stop.</span>
         </h2>
-        <p className="mt-5 max-w-[37ch] text-sm leading-relaxed text-ink/72 sm:mt-6 sm:text-base lg:text-lg">It started with a 16-year-old arriving in Bangalore with a bag of mangoes and a big appetite for possibility. Today, that same bright energy is shared across Bangalore and the UAE.</p>
+        <p className="mt-5 max-w-[37ch] text-sm leading-relaxed text-ink/72 sm:mt-6 sm:text-base lg:text-lg">It started in South India with a bag of mangoes and a big appetite for possibility. Today, that same bright energy is shared across South India and the UAE.</p>
       </div>
 
       <div className="border-t border-ink/15 pt-5 lg:mb-2 lg:pt-6">
         <p className="eyebrow text-ink/52">A bright beginning, still unfolding.</p>
         <div className="mt-5 flex items-center gap-3 text-mango-deep sm:gap-4">
-          <span className="display text-[clamp(1.55rem,5vw,3.2rem)] leading-none tracking-[-.055em]">Bangalore</span>
+          <span className="display text-[clamp(1.55rem,5vw,3.2rem)] leading-none tracking-[-.055em]">South India</span>
           <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rounded-full bg-mango" />
           <span className="display text-[clamp(1.55rem,5vw,3.2rem)] leading-none tracking-[-.055em]">UAE</span>
         </div>
@@ -295,11 +295,11 @@ function SocialProof() {
 
 function Locations() {
   const cities = [
-    { name: 'Bangalore', copy: 'The city where our mango story began.', style: { background: 'radial-gradient(circle at 83% 17%,rgba(255,215,90,.24),transparent 24%),linear-gradient(135deg,#09281e 0%,#124a36 58%,#1d6547 100%)' }, textTone: 'text-cream', mutedTone: 'text-cream/65', accent: 'text-mango' },
+    { name: 'South India', copy: 'The home of our mango story.', style: { background: 'radial-gradient(circle at 83% 17%,rgba(255,215,90,.24),transparent 24%),linear-gradient(135deg,#09281e 0%,#124a36 58%,#1d6547 100%)' }, textTone: 'text-cream', mutedTone: 'text-cream/65', accent: 'text-mango' },
     { name: 'UAE', copy: 'A growing Mango’s world, made for happy days.', style: { background: 'radial-gradient(circle at 82% 18%,rgba(255,246,195,.45),transparent 22%),linear-gradient(135deg,#cf790d 0%,#f2a409 55%,#ffd464 100%)' }, textTone: 'text-ink', mutedTone: 'text-ink/65', accent: 'text-ink' },
   ];
 
-  return <section id="visit" className="relative overflow-hidden bg-vanilla px-5 py-24 md:px-10 md:py-32"><div className="grain absolute inset-0 opacity-10" /><div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.8fr_1.2fr]"><div><p className="eyebrow text-mango-deep">Find your little happy</p><h2 className="display mt-4 text-5xl leading-[.84] md:text-7xl">Two cities.<br /><span>One bright mood.</span></h2><p className="mt-6 max-w-sm text-sm leading-relaxed text-ink/70">Mango’s is bringing its dessert ritual to people across Bangalore and the UAE.</p></div><div className="grid gap-4 md:grid-cols-2">{cities.map((city) => <article key={city.name} className="relative min-h-[218px] overflow-hidden rounded-[1.6rem] border border-white/20 p-5 shadow-[0_10px_0_rgba(16,59,43,.16),0_16px_28px_rgba(16,59,43,.1)] sm:min-h-[250px] sm:rounded-[1.8rem] sm:p-6 md:min-h-[285px] md:rounded-[2rem] md:p-7 md:shadow-[0_14px_0_rgba(16,59,43,.18),0_21px_34px_rgba(16,59,43,.12)]" style={city.style}><div aria-hidden="true" className="absolute -right-8 -top-12 h-36 w-36 rounded-full border border-white/20 sm:-right-10 sm:-top-14 sm:h-44 sm:w-44 md:-right-12 md:-top-16 md:h-48 md:w-48" /><div aria-hidden="true" className="absolute bottom-0 left-0 h-[44%] w-full bg-[linear-gradient(180deg,transparent,rgba(0,0,0,.17))]" /><MapPin size={20} className={`relative z-10 sm:h-6 sm:w-6 ${city.accent}`} /><div className="relative z-10 mt-9 sm:mt-12 md:mt-16"><p className={`display text-[2rem] leading-none sm:text-4xl ${city.textTone}`}>{city.name}</p><p className={`mt-2 max-w-[22ch] text-[13px] leading-relaxed sm:mt-3 sm:max-w-[18ch] sm:text-sm ${city.mutedTone}`}>{city.copy}</p></div><span className={`absolute bottom-5 left-5 z-10 text-[10px] font-black uppercase tracking-[.12em] sm:bottom-6 sm:left-6 sm:text-[11px] sm:tracking-[.14em] md:left-7 ${city.textTone}`}>Details coming soon</span></article>)}</div></div></section>;
+  return <section id="visit" className="relative overflow-hidden bg-vanilla px-5 py-24 md:px-10 md:py-32"><div className="grain absolute inset-0 opacity-10" /><div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.8fr_1.2fr]"><div><p className="eyebrow text-mango-deep">Find your little happy</p><h2 className="display mt-4 text-5xl leading-[.84] md:text-7xl">Two regions.<br /><span>One bright mood.</span></h2><p className="mt-6 max-w-sm text-sm leading-relaxed text-ink/70">Mango’s is bringing its dessert ritual to people across South India and the UAE.</p></div><div className="grid gap-4 md:grid-cols-2">{cities.map((city) => <article key={city.name} className="relative min-h-[218px] overflow-hidden rounded-[1.6rem] border border-white/20 p-5 shadow-[0_10px_0_rgba(16,59,43,.16),0_16px_28px_rgba(16,59,43,.1)] sm:min-h-[250px] sm:rounded-[1.8rem] sm:p-6 md:min-h-[285px] md:rounded-[2rem] md:p-7 md:shadow-[0_14px_0_rgba(16,59,43,.18),0_21px_34px_rgba(16,59,43,.12)]" style={city.style}><div aria-hidden="true" className="absolute -right-8 -top-12 h-36 w-36 rounded-full border border-white/20 sm:-right-10 sm:-top-14 sm:h-44 sm:w-44 md:-right-12 md:-top-16 md:h-48 md:w-48" /><div aria-hidden="true" className="absolute bottom-0 left-0 h-[44%] w-full bg-[linear-gradient(180deg,transparent,rgba(0,0,0,.17))]" /><MapPin size={20} className={`relative z-10 sm:h-6 sm:w-6 ${city.accent}`} /><div className="relative z-10 mt-9 sm:mt-12 md:mt-16"><p className={`display text-[2rem] leading-none sm:text-4xl ${city.textTone}`}>{city.name}</p><p className={`mt-2 max-w-[22ch] text-[13px] leading-relaxed sm:mt-3 sm:max-w-[18ch] sm:text-sm ${city.mutedTone}`}>{city.copy}</p></div><span className={`absolute bottom-5 left-5 z-10 text-[10px] font-black uppercase tracking-[.12em] sm:bottom-6 sm:left-6 sm:text-[11px] sm:tracking-[.14em] md:left-7 ${city.textTone}`}>Details coming soon</span></article>)}</div></div></section>;
 }
 
 // function Franchise() { return <section id="franchise" className="bg-mango px-5 py-24 text-ink md:px-10 md:py-32"><div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.1fr_.9fr] lg:items-end"><motion.div initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: .75, ease }}><p className="eyebrow">Bring the joy closer</p><h2 className="display mt-4 max-w-3xl text-5xl leading-[.86] md:text-8xl">Build the next<br /><i className="font-light">happy place.</i></h2><p className="mt-7 max-w-md text-base leading-relaxed md:text-lg">Mango's is inviting thoughtful, growth-minded franchise partners to bring a memorable dessert experience to more neighbourhoods.</p><div className="mt-8"><MagneticLink href="mailto:franchise@mangoscreamery.com">Become a franchise partner</MagneticLink></div></motion.div><motion.div initial={{ opacity: 0, scale: .94 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: .7, ease }} className="rounded-[2rem] border border-ink/20 bg-cream/45 p-6 backdrop-blur-sm"><p className="eyebrow">The Mango's advantage</p><div className="mt-8 grid gap-6">{[['A brand people remember', 'A bright, recognisable identity made for repeat visits.'], ['Support that stays close', 'A collaborative relationship from set-up through launch.'], ['Room to grow', 'A focused opportunity for entrepreneurs who love hospitality.']].map(([title, description], i) => <div key={title} className="border-b border-ink/15 pb-5 last:border-0"><span className="text-xs font-bold">0{i + 1}</span><h3 className="mt-1 text-xl font-bold">{title}</h3><p className="mt-1 max-w-sm text-sm leading-relaxed opacity-75">{description}</p></div>)}</div></motion.div></div></section>; }
@@ -307,24 +307,30 @@ function Locations() {
 function Franchise() { 
   return (
     <section id="franchise" className="relative overflow-hidden bg-[#003d2d] px-4 py-12 text-cream md:px-10 md:py-20">
-      <div className="mx-auto max-w-[760px]">
-        
-        {/* Left Side: Editorial Franchise Reference Image */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }} 
-          whileInView={{ opacity: 1, scale: 1 }} 
-          viewport={{ once: true }} 
-          transition={{ duration: 0.8, ease }} 
-          className="relative overflow-hidden rounded-[1.6rem] border-[3px] border-[#d2cc98] bg-[#003d2d] shadow-[0_22px_60px_rgba(0,0,0,.28)]"
-        >
-          <img 
-            src={ASSETS.franchiseReference} 
-            alt="Mango's Franchise Experience" 
-            loading="lazy"
-            decoding="async"
-            className="block h-auto w-full" 
-          />
-        </motion.div>
+      <div className="mx-auto max-w-[1160px]">
+        <div className="grid gap-5 md:grid-cols-2 md:gap-7">
+          {[
+            [ASSETS.franchise.campaignOne, "Mango's franchise investment opportunity"],
+            [ASSETS.franchise.campaignTwo, "Why partner with Mango's"],
+          ].map(([image, alt], index) => (
+            <motion.div
+              key={alt}
+              initial={{ opacity: 0, y: 28, scale: 0.98 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.7, delay: index * 0.1, ease }}
+              className="overflow-hidden rounded-[1.6rem] border-[3px] border-[#d2cc98] bg-[#fff7d6] shadow-[0_22px_60px_rgba(0,0,0,.28)]"
+            >
+              <img
+                src={image}
+                alt={alt}
+                loading="lazy"
+                decoding="async"
+                className="block h-auto w-full"
+              />
+            </motion.div>
+          ))}
+        </div>
 
         {/* Right Side: Content & Advantage list */}
         <motion.div className="hidden" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: .75, ease }}>

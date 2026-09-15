@@ -4,7 +4,8 @@ import biscoffSundae from '../assets/products/new/biscoff-sundae-transparent.png
 import blueMojito from '../assets/products/new/blue-lime-boba-mojito.png';
 import mangoMojito from '../assets/products/new/mango-boba-mojito.png';
 import mangoCream from '../assets/products/new/mango-cream.png';
-import franchiseReference from '../assets/franchise-reference.jpeg';
+import franchiseCampaignOne from '../assets/franchise/franchise-campaign-one.png';
+import franchiseCampaignTwo from '../assets/franchise/franchise-campaign-two.png';
 import brandMark from '../assets/brand/mangos-runner-mark.png';
 import dryfruitbowl from '../assets/products/new/dryfruit-bowl.png';
 import dbc from '../assets/products/new/dbc.png';
@@ -16,6 +17,9 @@ import strawberryChocolateMenu from '../assets/products/new/strawberry-chocolate
 export const ASSETS = {
   logo,
   brandMark,
-  franchiseReference,
+  franchise: {
+    campaignOne: franchiseCampaignOne,
+    campaignTwo: franchiseCampaignTwo,
+  },
   products: { chocolateShakeCutout, dryfruitbowl, biscoffSundae, blueMojito, mangoMojito, mangoCream, dbc, nutellaBrownieWaffle, royalFaloodaMenu, strawberryChocolateMenu },
 };
