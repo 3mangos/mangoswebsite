@@ -331,6 +331,20 @@ function Franchise() {
             </motion.div>
           ))}
         </div>
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.2, ease }}
+          className="mt-7 flex justify-center md:mt-9"
+        >
+          <MagneticLink
+            href="https://wa.me/919945041870?text=Hi%20Mango%27s%2C%20I%27m%20interested%20in%20a%20franchise%20opportunity."
+            className="bg-mango text-ink hover:text-ink"
+          >
+            Enquire on WhatsApp
+          </MagneticLink>
+        </motion.div>
 
         {/* Right Side: Content & Advantage list */}
         <motion.div className="hidden" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: .75, ease }}>
