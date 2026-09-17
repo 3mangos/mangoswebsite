@@ -342,7 +342,7 @@ function Franchise() {
             href="https://wa.me/919945041870?text=Hi%20Mango%27s%2C%20I%27m%20interested%20in%20a%20franchise%20opportunity."
             className="bg-mango text-ink hover:text-ink"
           >
-            Enquire on WhatsApp
+            Partner with Mango’s
           </MagneticLink>
         </motion.div>
 
