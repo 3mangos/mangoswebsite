@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://www.mangoscreamery.com/sitemap.xml

@@ -8,7 +8,7 @@ const NAV_LINKS = [
   { label: 'Story', href: '/#story' },
   { label: 'The Menu', href: '/menu' },
   { label: 'Locations', href: '/#visit' },
-  { label: 'Franchise', href: '/#franchise' },
+  { label: 'Franchise Enquiry', href: '/franchise-enquiry' },
 ];
 
 export default function NavBar() {
@@ -73,7 +73,7 @@ export default function NavBar() {
 
           {/* CTA button */}
           <a
-            href="/#franchise"
+            href="/franchise-enquiry"
             className="hidden items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-[13px] font-bold text-cream shadow-[inset_0_-3px_0_rgba(0,0,0,.18)] transition-all hover:-translate-y-0.5 hover:bg-mango hover:text-ink lg:flex"
           >
             Partner with us <ArrowUpRight size={14} />
@@ -114,7 +114,7 @@ export default function NavBar() {
                 </a>
               ))}
               <a
-                href="/#franchise"
+                href="/franchise-enquiry"
                 onClick={() => setOpen(false)}
                 className="mt-2 flex items-center justify-between rounded-2xl bg-mango px-4 py-4 text-xl font-bold text-ink"
               >

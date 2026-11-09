@@ -360,7 +360,7 @@ function Franchise() {
           className="mt-7 flex justify-center md:mt-9"
         >
           <MagneticLink
-            href="https://wa.me/919945041870?text=Hi%20Mango%27s%2C%20I%27m%20interested%20in%20a%20franchise%20opportunity."
+            href="/franchise-enquiry"
             className="bg-mango text-ink hover:text-ink"
           >
             Partner with Mango’s
@@ -377,7 +377,7 @@ function Franchise() {
             Mango's is inviting thoughtful, growth-minded franchise partners to bring a memorable dessert experience to more neighbourhoods.
           </p>
           <div className="mt-8">
-            <MagneticLink href="mailto:franchise@mangoscreamery.com">Become a franchise partner</MagneticLink>
+            <MagneticLink href="/franchise-enquiry">Become a franchise partner</MagneticLink>
           </div>
 
           <div className="mt-12 rounded-[2rem] border border-ink/20 bg-cream/50 p-6 backdrop-blur-sm">

@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Menu from './pages/Menu';
 import MenuCategoryDirectory from './pages/MenuCategoryDirectory';
 import BobaMenu from './pages/BobaMenu';
+import FranchiseEnquiry from './pages/FranchiseEnquiry';
 import Layout from './components/layout/Layout';
 
 const ScrollManager = () => {
@@ -46,6 +47,7 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/menu" element={<Menu />} />
+              <Route path="/franchise-enquiry" element={<FranchiseEnquiry />} />
               <Route path="/menu/:category/:collection" element={<BobaMenu />} />
               <Route path="/menu/:category" element={<MenuCategoryDirectory />} />
             </Routes>
